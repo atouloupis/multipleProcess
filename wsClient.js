@@ -80,7 +80,7 @@ mongoClient.connect(urlOrderBook, function (err, db) {
             if (err) throw err;
             console.log("wsClient1");
             mongoDb.dropCollection(collectionName, function () {
-;
+
                 mongoDb.insertCollection(collectionName, symbol, function () {
 
                     mongoDb.createIndex(collectionName, "{id:1}", function () {
