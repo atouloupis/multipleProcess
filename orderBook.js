@@ -1,10 +1,10 @@
 var mongoDb = require('./mongoDb');
 module.exports.updateOrderBook = updateOrderBook;
+var collectionName = "orderBookFrame";
+
 
 function updateOrderBook(dbase,orderBookFrame, method, callbackMain) {
-console.log(orderBookFrame);
-    var collectionName = "orderBookFrame";
-    var symbol = orderBookFrame.symbol;
+var symbol = orderBookFrame.symbol;
     //Si methode = snapshotOrderbook, supprime et remplace toutes les valeurs pour ce symbol
     if (method == "snapshotOrderbook") {
         deleteQuery = JSON.parse('{ "symbol" : "' + symbol + '" }');
