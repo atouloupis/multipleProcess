@@ -2,6 +2,8 @@ var symbol = 'NETETH';
 var urlOrderBook = "mongodb://localhost:27017/orderBook";
 var wsCall = require('./wsCall');
 var mongoClient = require('mongodb').MongoClient;
+var keyfile = './key.json';
+var jsonfile = require('jsonfile');
 
 var rqstTicker = {
     "method": "subscribeTicker",
