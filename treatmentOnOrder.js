@@ -1,4 +1,4 @@
-var wsConnection = require('./wsClient');
+var wsConnection = require('./wsCall');
 module.exports.cancelOrder = cancelOrder;
 module.exports.placeOrder = placeNewOrder;
 module.exports.replaceOrder = cancelReplaceOrder;
