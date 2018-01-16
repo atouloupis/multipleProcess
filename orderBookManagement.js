@@ -16,9 +16,9 @@ var rqstAuth = null;
 
 mongoClient.connect(urlOrderBook, function(err, db) {
     if (err) throw err;
-    exports.dbase = db.db("orderBook");
-    mongoDb.createCollection("orderBookFrame", function() {
-        mongoDb.dropCollection("orderBookFrame", function() {
+    dbase = db.db("orderBook");
+    mongoDb.createCollection(dbase,"orderBookFrame", function() {
+        mongoDb.dropCollection(dbase,"orderBookFrame", function() {
             var j = schedule.scheduleJob('*/20 * * * * *', function() {
                 wsCall.webSocketCall(rqstOrderBook, rqstAuth);
             });

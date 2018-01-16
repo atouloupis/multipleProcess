@@ -4,6 +4,7 @@ var get = require('./getReportsActiveOrders');
 var eligibility = require('./eligibility');
 var mongoDb = require('./mongoDb');
 var symbolDate = new Object();
+var dbase = require('./tickerManagement').dbase
 
 function hasAnOrder(tickerFrame, callback) {
     var symbol = tickerFrame.params.symbol;
@@ -115,7 +116,7 @@ function orderBookVolumes(order, marketSide, callback) {
         symbol: order.symbol,
         way: marketSide
     };
-    mongoDb.findRecords("orderBookFrame", query, {
+    mongoDb.findRecords(dbase,"orderBookFrame", query, {
         _id: -1
     }, function(message) {
         var totalVolume = 0;

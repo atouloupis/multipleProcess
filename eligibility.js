@@ -4,6 +4,7 @@ var mongoDb = require('./mongoDb');
 var api = require('./getRestFull');
 var getReports = require('./getReportsActiveOrders');
 var treatmentOnOrder = require('./treatmentOnOrder');
+var dbase = require('./tickerManagement').dbase
 
 function sell(ticker, callback) {
     var balanceAvailable = 0;
@@ -35,7 +36,7 @@ function sell(ticker, callback) {
                 };
                 var askLowestPrice;
                 var askarr = [];
-                mongoDb.findRecords(collectionName, query, {
+                mongoDb.findRecords(dbase,collectionName, query, {
                     _id: -1
                 }, function(message) {
                     for (var i = 0; i < message.length; i++) {
@@ -50,7 +51,7 @@ function sell(ticker, callback) {
                     //recupérer l'unité prix minimum
                     var collectionName = "symbol";
                     var tickSize;
-                    mongoDb.findRecords(collectionName, {
+                    mongoDb.findRecords(dbase,collectionName, {
                         id: ticker.symbol
                     }, {
                         _id: -1
@@ -87,7 +88,7 @@ function buy(ticker, callback) {
     var collectionName = "activeOrderBook";
     var query = "{symbol:" + ticker.symbol + "}";
     //est ce qu'il y a déjà une certaine quantité en stock. Si oui, got to sell
-    mongoDb.findRecords(collectionName, query, {
+    mongoDb.findRecords(dbase,collectionName, query, {
         _id: -1
     }, function(message) {
         if (message.length > 1) {
@@ -121,7 +122,7 @@ function buy(ticker, callback) {
                 var bidHighestPrice;
                 var bidarr = [];
                 var askarr = [];
-                mongoDb.findRecords(collectionName, query, {
+                mongoDb.findRecords(dbase,collectionName, query, {
                     _id: -1
                 }, function(message) {
                     for (var i = 0; i < message.length; i++) {
@@ -151,7 +152,7 @@ function buy(ticker, callback) {
                         var query = {
                             id: ticker.symbol
                         };
-                        mongoDb.findRecords(collectionName, query, {
+                        mongoDb.findRecords(dbase,collectionName, query, {
                             _id: -1
                         }, function(message) {
                             // console.log(message)

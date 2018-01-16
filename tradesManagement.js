@@ -18,8 +18,8 @@ mongoClient.connect(urlOrderBook, function(err, db) {
     if (err) throw err;
     exports.dbase = db.db("orderBook");
 
-    mongoDb.createCollection("tradeHistory", function() {
-        mongoDb.dropCollection("tradeHistory", function() {
+    mongoDb.createCollection(dbase,"tradeHistory", function() {
+        mongoDb.dropCollection(dbase,"tradeHistory", function() {
 
             wsCall.webSocketCall(rqstSnapshotTrades, rqstAuth);
         });

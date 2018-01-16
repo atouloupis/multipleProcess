@@ -3,11 +3,12 @@ module.exports.getLastBuyTrade = getLastBuyTrade;
 module.exports.getLastTrades = getLastTrades;
 var mongoDb = require('./mongoDb');
 var api = require('./getRestFull');
+var dbase = require('./tickerManagement').dbase
 
 function getActiveOrders (symbol,callback)
 {
 var collectionName="activeOrders";
-mongoDb.findRecords(collectionName,{"symbol":symbol},{_id: -1},function(allOrders){
+mongoDb.findRecords(dbase,collectionName,{"symbol":symbol},{_id: -1},function(allOrders){
     for (var i=0;i<allOrders.length;i++)
 		{
 		if (allOrders[i].status == "new" || allOrders[i].status == "partiallyFilled")
@@ -47,7 +48,7 @@ function getLastTrades (symbol,number,callback)
 {
 var lastTrades=[];
 var collectionName = "tradeHistory";
-mongoDb.findRecords(collectionName,{"symbol":symbol},{timestamp: -1},function(allTrades){
+mongoDb.findRecords(dbase,collectionName,{"symbol":symbol},{timestamp: -1},function(allTrades){
 	if (number>allTrades.length)callback(lastTrades);
 	else{
 	for (var i=0;i<number;i++)

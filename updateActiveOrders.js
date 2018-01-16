@@ -2,6 +2,7 @@ module.exports.newActiveOrders = newActiveOrders;
 var mongoDb = require('./mongoDb');
 var get = require('./getRestFull')
 var date1 = new Date;
+var dbase = require('./activeOrderManagement').dbase
 
 function newActiveOrders(frame,callback) {
     var collectionName = "activeOrders";
@@ -9,8 +10,8 @@ function newActiveOrders(frame,callback) {
         for (var i = 0; i < frame.length; i++) {
             var queryUpdate = {"clientOrderId": frame[i].clientOrderId};
             var newValue = frame[i];
-            mongoDb.updateCollection(collectionName, queryUpdate, {$set: newValue}, function () {
-                mongoDb.createIndex(collectionName,"{symbol:1,clientOrderId:1}",function(){
+            mongoDb.updateCollection(dbase,collectionName, queryUpdate, {$set: newValue}, function () {
+                mongoDb.createIndex(dbase,collectionName,"{symbol:1,clientOrderId:1}",function(){
 				callback();
 				});
             });
@@ -19,8 +20,8 @@ function newActiveOrders(frame,callback) {
         {
             var queryUpdate = {"clientOrderId": frame.clientOrderId};
             var newValue = frame;
-            mongoDb.updateCollection(collectionName, queryUpdate, {$set: newValue}, function () {
-                mongoDb.createIndex(collectionName,"{symbol:1,clientOrderId:1}",function(){
+            mongoDb.updateCollection(dbase,collectionName, queryUpdate, {$set: newValue}, function () {
+                mongoDb.createIndex(dbase,collectionName,"{symbol:1,clientOrderId:1}",function(){
 				callback();
 				});
             });

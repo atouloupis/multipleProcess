@@ -15,8 +15,8 @@ mongoClient.connect(urlOrderBook, function(err, db) {
     if (err) throw err;
     exports.dbase = db.db("orderBook");
 
-    mongoDb.createCollection(collectionName, function() {
-        mongoDb.dropCollection(collectionName, function() {
+    mongoDb.createCollection(dbase,collectionName, function() {
+        mongoDb.dropCollection(dbase,collectionName, function() {
 
             jsonfile.readFile(keyfile, function(err, obj) {
                 if (err) throw err;
@@ -36,9 +36,9 @@ mongoClient.connect(urlOrderBook, function(err, db) {
                         if (err) throw err;
                         if (activeOrder.length != 0) {
                             console.log("newOrder")
-                            mongoDb.dropCollection(collectionName, function() {
-                                mongoDb.insertCollection(collectionName, activeOrder, function() {
-                                    mongoDb.createIndex(collectionName, "{symbol:1}", function() {});
+                            mongoDb.dropCollection(dbase,collectionName, function() {
+                                mongoDb.insertCollection(dbase,collectionName, activeOrder, function() {
+                                    mongoDb.createIndex(dbase,collectionName, "{symbol:1}", function() {});
                                 });
                             });
                         }

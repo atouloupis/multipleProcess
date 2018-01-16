@@ -1,7 +1,7 @@
 var mongoDb = require('./mongoDb');
 var ioSource = require('./wsClient.js');
 module.exports.updateOrderBook = updateOrderBook;
-
+var dbase = require('./orderBookManagement').dbase
 
 function updateOrderBook(orderBookFrame, method, callbackMain) {
     var collectionName = "orderBookFrame";
@@ -9,7 +9,7 @@ function updateOrderBook(orderBookFrame, method, callbackMain) {
     //Si methode = snapshotOrderbook, supprime et remplace toutes les valeurs pour ce symbol
     if (method == "snapshotOrderbook") {
         deleteQuery = JSON.parse('{ "symbol" : "' + symbol + '" }');
-        mongoDb.deleteRecords(collectionName, deleteQuery, function() {
+        mongoDb.deleteRecords(dbase,collectionName, deleteQuery, function() {
             //D�couper la trame pour respecter format
             //D�coupe de ask et enregistrement
             //Appel de la fonction d'ajout des ASK à partir d'un snapshot
@@ -48,8 +48,8 @@ function updateOrderBook(orderBookFrame, method, callbackMain) {
                 params: orderBookFrame.bid[i]
             });
         }
-        mongoDb.insertCollection(collectionName, objAdd, function() {
-            mongoDb.createIndex(collectionName, "{symbol:1,way:-1}", function() {});
+        mongoDb.insertCollection(dbase,collectionName, objAdd, function() {
+            mongoDb.createIndex(dbase,collectionName, "{symbol:1,way:-1}", function() {});
             callback("snapshotFinish2");
         });
 
@@ -74,8 +74,8 @@ function updateOrderBook(orderBookFrame, method, callbackMain) {
                     }
                 }
             };
-            mongoDb.updateCollection(collectionName, queryBid, newEntryBid, function() {
-                mongoDb.createIndex(collectionName, "{symbol:1,way:-1}", function() {});
+            mongoDb.updateCollection(dbase,collectionName, queryBid, newEntryBid, function() {
+                mongoDb.createIndex(dbase,collectionName, "{symbol:1,way:-1}", function() {});
                 callback();
             });
         } else if (typeof orderBookFrame.ask[0] != "undefined") {
@@ -94,8 +94,8 @@ function updateOrderBook(orderBookFrame, method, callbackMain) {
                     }
                 }
             };
-            mongoDb.updateCollection(collectionName, queryAsk, newEntryAsk, function() {
-                mongoDb.createIndex(collectionName, "{symbol:1,way:-1}", function() {});
+            mongoDb.updateCollection(dbase,collectionName, queryAsk, newEntryAsk, function() {
+                mongoDb.createIndex(dbase,collectionName, "{symbol:1,way:-1}", function() {});
                 callback();
             });
 
@@ -108,7 +108,7 @@ function updateOrderBook(orderBookFrame, method, callbackMain) {
         var query = {
             symbol: symbol
         };
-        mongoDb.findRecords(collectionName, query, {
+        mongoDb.findRecords(dbase,collectionName, query, {
             _id: -1
         }, function(message) {
             var bid = [];
