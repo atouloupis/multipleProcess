@@ -7,9 +7,8 @@ var urlOrderBook = "mongodb://localhost:27017/orderBook";
 
 mongoClient.connect(urlOrderBook, function(err, db) {
     if (err) throw err;
-
-    mongoDb.createCollection(dbase,collectionName, function() {
 dbase = db.db("orderBook");
+    mongoDb.createCollection(dbase,collectionName, function() {
         api.getHitBTC("/api/2/public/symbol", "GET", function(err, symbol) {
             if (err) throw err;
             mongoDb.dropCollection(dbase,collectionName, function() {
