@@ -1,7 +1,5 @@
 module.exports.newActiveOrders = newActiveOrders;
 var mongoDb = require('./mongoDb');
-var get = require('./getRestFull')
-var date1 = new Date;
 
 function newActiveOrders(dbase,frame,callback) {
     var collectionName = "activeOrders";

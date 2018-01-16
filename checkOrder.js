@@ -3,13 +3,13 @@ var treatmentOnOrder = require('./treatmentOnOrder');
 var get = require('./getReportsActiveOrders');
 var eligibility = require('./eligibility');
 var mongoDb = require('./mongoDb');
-var symbolDate = new Object();
+var symbolDate = {};
 
 
 function hasAnOrder(dbase,tickerFrame, callback) {
     var symbol = tickerFrame.params.symbol;
     var date = new Date;
-    if (date - symbolDate[symbol] > 15000 || symbolDate[symbol] == undefined) {
+    if (date - symbolDate[symbol] > 500 || symbolDate[symbol] === undefined) {
         symbolDate[symbol] = new Date;
         get.getActiveOrders(dbase,tickerFrame.params.symbol, function(activeOrder) {
 		console.log("activeOrder");
@@ -32,7 +32,7 @@ function hasAnOrder(dbase,tickerFrame, callback) {
 }
 
 function activeSellOrBuy(order, ticker, callback) {
-    if (order.side == "sell") {
+    if (order.side === "sell") {
         var diff = orderThanMarket(order, ticker, "bid");
         orderBookVolumes(order, "ask", function(volume) {
             console.log("orderBookVolumes");
@@ -68,7 +68,7 @@ function activeSellOrBuy(order, ticker, callback) {
                 callback();
             }
         });
-    } else if (order.side == "buy") {
+    } else if (order.side === "buy") {
         var diff = orderThanMarket(order, ticker, "ask");
         orderBookVolumes(order, "bid", function(volume) {
             //SI diff entre notre ordre d'achat et le ticker de vente ask  inf 1% alors annuler l'ordre
@@ -105,8 +105,8 @@ function activeSellOrBuy(order, ticker, callback) {
 //Actual order compared to the market, higher or lower than a specified X%age.
 //orderSide = buy or sell, marketSide= ask or bid, gapSide = positive or negative
 function orderThanMarket(order, ticker, marketSide) {
-    if (marketSide == "bid") var diff = ((ticker.bid / order.price) - 1) * 100;
-    else if (marketSide == "ask") var diff = ((ticker.ask / order.price) - 1) * 100;
+    if (marketSide === "bid") var diff = ((ticker.bid / order.price) - 1) * 100;
+    else if (marketSide === "ask") var diff = ((ticker.ask / order.price) - 1) * 100;
     else {}
     //console.log("diff ask =" + ticker.ask+"/"+order.price);
     return diff;
@@ -129,10 +129,9 @@ function orderBookVolumes(order, marketSide, callback) {
             if (message[i].params.size != 0.00) {
                 totalVolume = totalVolume + parseFloat(message[i].params.size);
                 if (message[i].params.price < order.price) volInfOrder += parseFloat(message[i].params.size);
-                else if (message[i].params.price == order.price) volEqualOrder += parseFloat(message[i].params.size);
+                else if (message[i].params.price === order.price) volEqualOrder += parseFloat(message[i].params.size);
                 else if (message[i].params.price > order.price) volSupOrder += parseFloat(message[i].params.size);
-                else {}
-            } else {}
+            }
         }
         //console.log("totalVolume =" +totalVolume+"volInfOrder"+volInfOrder+"volEqualOrder"+volEqualOrder+"volSupOrder"+volSupOrder);
         callback({

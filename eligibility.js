@@ -10,14 +10,9 @@ function sell(dbase,ticker, callback) {
     //annuler tous les ordres pour ce symbol
     api.getHitBTC("/api/2/order?symbol=" + ticker.symbol, "delete", function(err, result) {
         if (err) console.log("delete error" + JSON.stringify(err));
-
-
         //Récupérer le dernier trade history d'achat. A savoir combien on l'a acheté
         getReports.getLastBuyTrade(dbase,ticker.symbol, function(lastBuyTrade) {
-
             //console.log("lastBuyTrade"+lastBuyTrade.price);
-
-
             // il faut vérifier combien il y a sur le compte pour cette monnaie
             api.getHitBTC("/api/2/trading/balance", "get", function(err, tradingBalance) {
                 if (err) throw err;
@@ -87,14 +82,10 @@ function buy(dbase,ticker, callback) {
     var collectionName = "activeOrderBook";
     var query = "{symbol:" + ticker.symbol + "}";
     //est ce qu'il y a déjà une certaine quantité en stock. Si oui, got to sell
-    mongoDb.findRecords(dbase,collectionName, query, {
-        _id: -1
-    }, function(message) {
+    mongoDb.findRecords(dbase,collectionName, query, {_id: -1}, function(message) {
         if (message.length > 1) {
             for (var i = 0; i < message.length; i++) treatmentOnOrder.cancelOrder(message.clientOrderId);
-
         }
-    });
 
     api.getHitBTC("/api/2/trading/balance", "get", function(err, tradingBalance) {
         if (err) console.log(err);
@@ -182,6 +173,7 @@ function buy(dbase,ticker, callback) {
                 });
             }
         }
+    });
     });
 }
 

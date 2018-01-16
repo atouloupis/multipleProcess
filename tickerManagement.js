@@ -1,9 +1,13 @@
-var symbol = 'NETETH';
 var urlOrderBook = "mongodb://localhost:27017/orderBook";
 var wsCall = require('./wsCall');
 var mongoClient = require('mongodb').MongoClient;
 var keyfile = './key.json';
+var configfile = './config.json';
 var jsonfile = require('jsonfile');
+
+jsonfile.readFile(configfile, function(err, obj) {
+    if (err) throw err;
+    var symbol = obj.symbol;
 
 var rqstTicker = {
     "method": "subscribeTicker",
@@ -29,4 +33,5 @@ jsonfile.readFile(keyfile, function(err, obj) {
     wsCall.webSocketCall(dbase,rqstTicker, rqstAuth);
 	
 	});
+});
 });
