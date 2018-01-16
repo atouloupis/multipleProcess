@@ -17,6 +17,8 @@ function newActiveOrders(dbase,frame,callback) {
         }
         if (frame.length==undefined)
         {
+		console.log("frame.length = undefined");
+		console.log(frame);
             var queryUpdate = {"clientOrderId": frame.clientOrderId};
             var newValue = frame;
             mongoDb.updateCollection(dbase,collectionName, queryUpdate, {$set: newValue}, function () {
