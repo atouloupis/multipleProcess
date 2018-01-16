@@ -35,14 +35,14 @@ function updateOrderBook(dbase,orderBookFrame, method, callbackMain) {
 
         for (var i = 0; i < orderBookFrame.ask.length; i++) {
             objAdd.push({
-                symbol: symbol,
+                symbol: orderBookFrame.symbol,
                 way: "ask",
                 params: orderBookFrame.ask[i]
             });
         }
         for (var i = 0; i < orderBookFrame.bid.length; i++) {
             objAdd.push({
-                symbol: symbol,
+                symbol: orderBookFrame.symbol,
                 way: "bid",
                 params: orderBookFrame.bid[i]
             });
@@ -58,14 +58,14 @@ function updateOrderBook(dbase,orderBookFrame, method, callbackMain) {
 
         if (typeof orderBookFrame.bid[0] != "undefined") {
             var queryBid = {
-                symbol: symbol,
+                symbol: orderBookFrame.symbol,
                 way: "bid",
                 "params.price": orderBookFrame.bid[0].price
             };
 
             var newEntryBid = {
                 $set: {
-                    symbol: symbol,
+                    symbol: orderBookFrame.symbol,
                     way: "bid",
                     params: {
                         price: orderBookFrame.bid[0].price,
@@ -79,13 +79,13 @@ function updateOrderBook(dbase,orderBookFrame, method, callbackMain) {
             });
         } else if (typeof orderBookFrame.ask[0] != "undefined") {
             var queryAsk = {
-                symbol: symbol,
+                symbol: orderBookFrame.symbol,
                 way: "ask",
                 "params.price": orderBookFrame.ask[0].price
             };
             var newEntryAsk = {
                 $set: {
-                    symbol: symbol,
+                    symbol: orderBookFrame.symbol,
                     way: "ask",
                     params: {
                         price: orderBookFrame.ask[0].price,
