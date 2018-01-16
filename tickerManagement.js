@@ -11,11 +11,20 @@ var rqstTicker = {
     "id": 123
 };
 
-var rqstAuth = null;
-
 mongoClient.connect(urlOrderBook, function(err, db) {
     if (err) throw err;
     dbase = db.db("orderBook");
-
+jsonfile.readFile(keyfile, function(err, obj) {
+                if (err) throw err;
+                var rqstAuth = {
+                    "method": "login",
+                    "params": {
+                        "algo": "BASIC",
+                        "pKey": obj.hitbtc.pKey,
+                        "sKey": obj.hitbtc.sKey
+                    }
+                };
     wsCall.webSocketCall(dbase,rqstTicker, rqstAuth);
+	
+	});
 });
