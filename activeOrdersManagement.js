@@ -35,7 +35,7 @@ mongoClient.connect(urlOrderBook, function(err, db) {
 
                 var j = schedule.scheduleJob('*/3 * * * * *', function() {
                     api.getHitBTC("/api/2/order", "GET", function(err, activeOrder) {
-                        if (err) console.log err;
+                        if (err) console.log (err);
                         if (activeOrder.length != 0) {
                             console.log("newOrder")
                             mongoDb.dropCollection(dbase,collectionName, function() {
