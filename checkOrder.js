@@ -9,7 +9,7 @@ var symbolDate = new Object();
 function hasAnOrder(dbase,tickerFrame, callback) {
     var symbol = tickerFrame.params.symbol;
     var date = new Date;
-    if (date - symbolDate[symbol] > 5000 || symbolDate[symbol] == undefined) {
+    if (date - symbolDate[symbol] > 15000 || symbolDate[symbol] == undefined) {
         symbolDate[symbol] = new Date;
         get.getActiveOrders(dbase,tickerFrame.params.symbol, function(activeOrder) {
 		console.log("activeOrder");
