@@ -18,7 +18,7 @@ function hasAnOrder(dbase,tickerFrame, callback) {
                 });
                 // console.log("activeOrder status not undefined");
             } else {
-                eligibility.eligibilityBuy(tickerFrame.params, function() {
+                eligibility.eligibilityBuy(dbase,tickerFrame.params, function() {
                     callback();
                 });
                 // console.log("activeOrder undefined");
