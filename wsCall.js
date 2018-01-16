@@ -18,8 +18,10 @@ function webSocketCall(dbase,rqst, rqstAuth) {
         }
         if (rqstAuth != null) 
 		{
-		sendRequest(rqstAuth, function() {sendRequest(rqst);});
+		sendRequest(rqstAuth, function() {
+		sendRequest(rqst,function(){});
+		});
 		}
-        else sendRequest(rqst,function() {sendRequest(rqst);});
+        else sendRequest(rqst,function(){});
     };
 }
