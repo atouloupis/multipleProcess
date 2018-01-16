@@ -7,6 +7,7 @@ exports.ws = ws;
 
 function webSocketCall(dbase,rqst, rqstAuth) {
     ws.onopen = function() {
+	console.log("CONNECTED");
         ws.onerror = function(evt) {};
         ws.onmessage = function(evt) {
             treatment.splitFrame(dbase,evt.data);
