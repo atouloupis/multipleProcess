@@ -17,14 +17,14 @@ function createCollection (dbase,collectionName,callback) {
 }
 
 function insertMongoCollection(dbase,collectionName, myObj, callback) {
-	connectDbaseSource.dbase.collection(collectionName).insertMany(myObj, function(err, res) {
+	dbase.collection(collectionName).insertMany(myObj, function(err, res) {
         if (err) throw err;
         callback(res);
     });
 }
 
 function deleteMany(dbase,collectioName, query, callback) {
-    connectDbaseSource.dbase.collection(collectioName).deleteMany(query, function(err, obj) {
+    dbase.collection(collectioName).deleteMany(query, function(err, obj) {
         if (err) throw err;
         callback(obj);
     });
@@ -32,7 +32,7 @@ function deleteMany(dbase,collectioName, query, callback) {
 }
 
 function find(dbase,collectionName, query, sort, callback) {
-	connectDbaseSource.dbase.collection(collectionName).find(query).sort(sort).toArray(function(err, result) {
+	dbase.collection(collectionName).find(query).sort(sort).toArray(function(err, result) {
         if (err) throw err;
         callback(result);
     });
@@ -41,14 +41,14 @@ function find(dbase,collectionName, query, sort, callback) {
 
 function update(dbase,collectionName, query, newValues, callback) {
 	
-	connectDbaseSource.dbase.collection(collectionName).updateOne(query, newValues, {upsert:true}, function(err, res) {
+	dbase.collection(collectionName).updateOne(query, newValues, {upsert:true}, function(err, res) {
         if (err) throw err;
         callback(res);
     });
 }
 
 function drop(dbase,collectionName, callback) {
-    connectDbaseSource.dbase.dropCollection(collectionName, function(err) {
+    dbase.dropCollection(collectionName, function(err) {
         if (err) throw err;
         console.log("drop collection name");
         console.log(collectionName);
@@ -57,14 +57,14 @@ function drop(dbase,collectionName, callback) {
 }
 
 function count(dbase,collectionName, callback) {
-    connectDbaseSource.dbase.collection(collectionName).count(function(err, res) {
+    dbase.collection(collectionName).count(function(err, res) {
         if (err) throw err;
         callback(res);
     });
 }
 
 function createIndex(dbase,collectionName,index, callback){
-    connectDbaseSource.dbase.collection(collectionName).ensureIndex(index,function(err,res){
+    dbase.collection(collectionName).ensureIndex(index,function(err,res){
         if (err) throw err;
         callback(res);
     });
