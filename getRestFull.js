@@ -2,11 +2,13 @@ module.exports.getHitBTC=getHitBTC;
 var https = require('https');
 var jsonfile = require('jsonfile');
 var keyfile = './key.json';
+	jsonfile.readFile(keyfile, function (err, obj) {
+if (err) throw err;
+	});
 
 function getHitBTC(path,method,callback) {
     
-	jsonfile.readFile(keyfile, function (err, obj) {
-if (err) throw err;
+
 
 
 	var options = {
@@ -19,7 +21,7 @@ if (err) throw err;
 			
         }
     };
-	});
+
     var req = https.request(options, function (res) {
         res.setEncoding('utf8');
         var buffer = '';
