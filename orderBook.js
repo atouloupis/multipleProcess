@@ -2,6 +2,7 @@ var mongoDb = require('./mongoDb');
 module.exports.updateOrderBook = updateOrderBook;
 
 function updateOrderBook(dbase,orderBookFrame, method, callbackMain) {
+console.log(orderBookFrame);
     var collectionName = "orderBookFrame";
     var symbol = orderBookFrame.symbol;
     //Si methode = snapshotOrderbook, supprime et remplace toutes les valeurs pour ce symbol
