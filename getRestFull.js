@@ -1,15 +1,10 @@
 module.exports.getHitBTC=getHitBTC;
 var https = require('https');
-var jsonfile = require('jsonfile');
-var keyfile = './key.json';
-	jsonfile.readFile(keyfile, function (err, obj) {
-if (err) throw err;
-var obj = obj;
-	});
 
 function getHitBTC(path,method,callback) {
     
-
+	jsonfile.readFile(keyfile, function (err, obj) {
+if (err) throw err;
 
 
 	var options = {
@@ -55,6 +50,7 @@ function getHitBTC(path,method,callback) {
     });
 
     req.end();
+	    };	
 
 }
 
