@@ -17,7 +17,7 @@ if (err) throw err;
 			
         }
     };
-	};
+	});
     var req = https.request(options, function (res) {
         res.setEncoding('utf8');
         var buffer = '';
