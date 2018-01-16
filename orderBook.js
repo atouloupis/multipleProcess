@@ -27,6 +27,7 @@ function updateOrderBook(dbase,orderBookFrame, method, callbackMain) {
             callbackMain("FINISH2");
         });
     }
+}
 
     function snapshotAddAsk(orderBookFrame, callback) {
         if (orderBookFrame.ask.length < 1 || orderBookFrame.bid.length < 1) callback("snapshotFinish1");
