@@ -39,10 +39,12 @@ mongoClient.connect(urlOrderBook, function(err, db) {
 								console.log("activeOrder");
 								console.log(activeOrder);
                         if (activeOrder.length != 0) {
-                            console.log("newOrder")
+                            console.log("newOrder");
+							    mongoDb.createCollection(dbase,collectionName, function() {
                             mongoDb.dropCollection(dbase,collectionName, function() {
                                 mongoDb.insertCollection(dbase,collectionName, activeOrder, function() {
                                     mongoDb.createIndex(dbase,collectionName, "{symbol:1}", function() {});
+									});
                                 });
                             });
                         }
