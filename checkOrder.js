@@ -4,14 +4,14 @@ var get = require('./getReportsActiveOrders');
 var eligibility = require('./eligibility');
 var mongoDb = require('./mongoDb');
 var symbolDate = new Object();
-var dbase = require('./tickerManagement').dbase
 
-function hasAnOrder(tickerFrame, callback) {
+
+function hasAnOrder(dbase,tickerFrame, callback) {
     var symbol = tickerFrame.params.symbol;
     var date = new Date;
     if (date - symbolDate[symbol] > 5000 || symbolDate[symbol] == undefined) {
         symbolDate[symbol] = new Date;
-        get.getActiveOrders(tickerFrame.params.symbol, function(activeOrder) {
+        get.getActiveOrders(dbase,tickerFrame.params.symbol, function(activeOrder) {
             if (activeOrder != undefined) {
                 activeSellOrBuy(activeOrder, tickerFrame.params, function() {
                     callback();
@@ -58,7 +58,7 @@ function activeSellOrBuy(order, ticker, callback) {
                 callback();
                 //console.log("order quantity")
                 //console.log( order.quantity)
-                eligibility.eligibilitySell(ticker, function() {
+                eligibility.eligibilitySell(dbase,ticker, function() {
                     callback();
                 }); //vérifier si on lance un ordre de vente sur cette monnaie
                 //Si non, on continue
@@ -74,7 +74,7 @@ function activeSellOrBuy(order, ticker, callback) {
             console.log("volume inf =" + volume.inf + " volume equal =" + volume.equal + " order quantity =" + order.quantity);
             if (diff < 1) {
                 treatmentOnOrder.cancelOrder(order.clientOrderId);
-                eligibility.eligibilityBuy(ticker, function() {
+                eligibility.eligibilityBuy(dbase,ticker, function() {
                     callback();
                 }); //vérifier si on lance un ordre de vente sur cette monnaie
             }
@@ -86,7 +86,7 @@ function activeSellOrBuy(order, ticker, callback) {
             else if ((volume.inf + volume.equal) > 10 * order.quantity) {
                 //Si oui on annule mon ordre
                 treatmentOnOrder.cancelOrder(order.clientOrderId);
-                eligibility.eligibilityBuy(ticker, function() {
+                eligibility.eligibilityBuy(dbase,ticker, function() {
                     callback();
                 }); //vérifier si on lance un ordre de vente sur cette monnaie
             }

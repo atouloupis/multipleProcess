@@ -15,7 +15,7 @@ var rqstAuth = null;
 
 mongoClient.connect(urlOrderBook, function(err, db) {
     if (err) throw err;
-    exports.dbase = db.db("orderBook");
+    dbase = db.db("orderBook");
 
-    wsCall.webSocketCall(rqstTicker, rqstAuth);
+    wsCall.webSocketCall(dbase,rqstTicker, rqstAuth);
 });

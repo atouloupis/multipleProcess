@@ -20,9 +20,9 @@ mongoClient.connect(urlOrderBook, function(err, db) {
     mongoDb.createCollection(dbase,"orderBookFrame", function() {
         mongoDb.dropCollection(dbase,"orderBookFrame", function() {
             var j = schedule.scheduleJob('*/20 * * * * *', function() {
-                wsCall.webSocketCall(rqstOrderBook, rqstAuth);
+                wsCall.webSocketCall(dbase,rqstOrderBook, rqstAuth);
             });
-            wsCall.webSocketCall(rqstOrderBook, rqstAuth);
+            wsCall.webSocketCall(dbase,rqstOrderBook, rqstAuth);
 
         });
     });

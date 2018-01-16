@@ -4,9 +4,8 @@ var mongoDb = require('./mongoDb');
 var api = require('./getRestFull');
 var getReports = require('./getReportsActiveOrders');
 var treatmentOnOrder = require('./treatmentOnOrder');
-var dbase = require('./tickerManagement').dbase
 
-function sell(ticker, callback) {
+function sell(dbase,ticker, callback) {
     var balanceAvailable = 0;
     //annuler tous les ordres pour ce symbol
     api.getHitBTC("/api/2/order?symbol=" + ticker.symbol, "delete", function(err, result) {
@@ -14,7 +13,7 @@ function sell(ticker, callback) {
 
 
         //Récupérer le dernier trade history d'achat. A savoir combien on l'a acheté
-        getReports.getLastBuyTrade(ticker.symbol, function(lastBuyTrade) {
+        getReports.getLastBuyTrade(dbase,ticker.symbol, function(lastBuyTrade) {
 
             //console.log("lastBuyTrade"+lastBuyTrade.price);
 
@@ -82,7 +81,7 @@ function sell(ticker, callback) {
     });
 }
 
-function buy(ticker, callback) {
+function buy(dbase,ticker, callback) {
     var balanceAvailable = 0;
 
     var collectionName = "activeOrderBook";
@@ -190,7 +189,7 @@ function averageTradeVolume(symbol, callback) {
     var date = new Date;
     //récupérer les 50 derniers trades en vente
     var somme = 0;
-    getReports.getLastTrades(symbol, 50, function(lastTrades) {
+    getReports.getLastTrades(dbase,symbol, 50, function(lastTrades) {
         //calcul moyenne temps de trade en vente
         // console.log("lastTrades.length"+lastTrades.length);
         for (var i = 0; i < lastTrades.length - 1; i++) {

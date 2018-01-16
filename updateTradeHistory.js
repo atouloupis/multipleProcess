@@ -1,7 +1,7 @@
 module.exports.newTradeHistory = newTradeHistory;
 var mongoDb = require('./mongoDb');
-var dbase = require('./tradesManagement').dbase
-function newTradeHistory(frame) {
+
+function newTradeHistory(dbase,frame) {
     var collectionName = "tradeHistory";
         for (var i = 0; i < frame.data.length; i++) {
 		var id=frame.data[i].id;

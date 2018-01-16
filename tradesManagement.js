@@ -16,12 +16,12 @@ var rqstAuth = null;
 
 mongoClient.connect(urlOrderBook, function(err, db) {
     if (err) throw err;
-    exports.dbase = db.db("orderBook");
+    dbase = db.db("orderBook");
 
     mongoDb.createCollection(dbase,"tradeHistory", function() {
         mongoDb.dropCollection(dbase,"tradeHistory", function() {
 
-            wsCall.webSocketCall(rqstSnapshotTrades, rqstAuth);
+            wsCall.webSocketCall(dbase,rqstSnapshotTrades, rqstAuth);
         });
     });
 });

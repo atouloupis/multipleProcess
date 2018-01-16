@@ -6,27 +6,27 @@ var transfer = require('./transferCoin');
 
 module.exports.splitFrame = splitFrame;
 
-function splitFrame(jsonFrame) {
+function splitFrame(dbase,jsonFrame) {
  
         jsonFrame = JSON.parse(jsonFrame);
 
         if (jsonFrame.method == "ticker") {
 		// console.time("hasAnOrder");
-            checkOrder.hasAnOrder(jsonFrame,function(){
+            checkOrder.hasAnOrder(dbase,jsonFrame,function(){
 			// console.timeEnd("hasAnOrder");
 			});
         }
         if (jsonFrame.method == "snapshotTrades" | jsonFrame.method == "updateTrades") {
             var tradeHistoryParams = jsonFrame.params;
             if (tradeHistoryParams != "undefined") {
-                updateTradeHistory.newTradeHistory(tradeHistoryParams);
+                updateTradeHistory.newTradeHistory(dbase,tradeHistoryParams);
             }
         }
         if (jsonFrame.method == "activeOrders" | jsonFrame.method == "report") {
             var reportsParams = jsonFrame.params;
             if (reportsParams != "undefined") {
 			// console.time("newActiveOrders");
-                updtOrders.newActiveOrders(reportsParams,function(){
+                updtOrders.newActiveOrders(dbase,reportsParams,function(){
 				// console.timeEnd("newActiveOrders");
 				});
             }
@@ -34,7 +34,7 @@ function splitFrame(jsonFrame) {
         if (jsonFrame.method == "updateOrderbook" | jsonFrame.method == "snapshotOrderbook") {
             var orderBookParams = jsonFrame.params;
 			// console.time("updateOrderbook");
-            orderBook.updateOrderBook(orderBookParams, jsonFrame.method, function (termine) {
+            orderBook.updateOrderBook(dbase,orderBookParams, jsonFrame.method, function (termine) {
 			// console.timeEnd("updateOrderbook");
             });
 			

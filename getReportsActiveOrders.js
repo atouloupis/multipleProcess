@@ -3,9 +3,8 @@ module.exports.getLastBuyTrade = getLastBuyTrade;
 module.exports.getLastTrades = getLastTrades;
 var mongoDb = require('./mongoDb');
 var api = require('./getRestFull');
-var dbase = require('./tickerManagement').dbase
 
-function getActiveOrders (symbol,callback)
+function getActiveOrders (dbase,symbol,callback)
 {
 var collectionName="activeOrders";
 mongoDb.findRecords(dbase,collectionName,{"symbol":symbol},{_id: -1},function(allOrders){
@@ -25,7 +24,7 @@ mongoDb.findRecords(dbase,collectionName,{"symbol":symbol},{_id: -1},function(al
 }
 
 
-function getLastBuyTrade (symbol,callback)
+function getLastBuyTrade (dbase,symbol,callback)
 {
 api.getHitBTC("/api/2/history/trades","get",function (err,allOrders) {
 
@@ -44,7 +43,7 @@ api.getHitBTC("/api/2/history/trades","get",function (err,allOrders) {
 });
 }
 
-function getLastTrades (symbol,number,callback)
+function getLastTrades (dbase,symbol,number,callback)
 {
 var lastTrades=[];
 var collectionName = "tradeHistory";

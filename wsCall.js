@@ -5,11 +5,11 @@ var WebSocket = require('ws');
 var ws = new WebSocket("wss://api.hitbtc.com/api/2/ws");
 exports.ws = ws;
 
-function webSocketCall(rqst, rqstAuth) {
+function webSocketCall(dbase,rqst, rqstAuth) {
     ws.onopen = function() {
         ws.onerror = function(evt) {};
         ws.onmessage = function(evt) {
-            treatment.splitFrame(evt.data);
+            treatment.splitFrame(dbase,evt.data);
         };
 
         function sendRequest(message, callback) {

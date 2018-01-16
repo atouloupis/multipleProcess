@@ -1,9 +1,8 @@
 var mongoDb = require('./mongoDb');
 var ioSource = require('./wsClient.js');
 module.exports.updateOrderBook = updateOrderBook;
-var dbase = require('./orderBookManagement').dbase
 
-function updateOrderBook(orderBookFrame, method, callbackMain) {
+function updateOrderBook(dbase,orderBookFrame, method, callbackMain) {
     var collectionName = "orderBookFrame";
     var symbol = orderBookFrame.symbol;
     //Si methode = snapshotOrderbook, supprime et remplace toutes les valeurs pour ce symbol

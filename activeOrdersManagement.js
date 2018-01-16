@@ -13,7 +13,7 @@ var rqstReport = {
 
 mongoClient.connect(urlOrderBook, function(err, db) {
     if (err) throw err;
-    exports.dbase = db.db("orderBook");
+    dbase = db.db("orderBook");
 
     mongoDb.createCollection(dbase,collectionName, function() {
         mongoDb.dropCollection(dbase,collectionName, function() {
@@ -29,7 +29,7 @@ mongoClient.connect(urlOrderBook, function(err, db) {
                     }
                 };
 
-                wsCall.webSocketCall(rqstReport, rqstAuth);
+                wsCall.webSocketCall(dbase,rqstReport, rqstAuth);
 
                 var j = schedule.scheduleJob('*/30 * * * * *', function() {
                     get.getHitBTC("/api/2/order", "GET", function(err, activeOrder) {
