@@ -3,9 +3,10 @@ var mongoDb = require('./mongoDb');
 var urlOrderBook = "mongodb://localhost:27017/orderBook";
 var wsCall = require('./wsCall');
 var keyfile = './key.json';
+var jsonfile = require('jsonfile');
 var mongoClient = require('mongodb').MongoClient;
 var collectionName = "activeOrders";
-var jsonfile = require('jsonfile');
+var api = require('./getRestFull');
 
 var rqstReport = {
     "method": "subscribeReports",
@@ -32,8 +33,8 @@ mongoClient.connect(urlOrderBook, function(err, db) {
 
                 wsCall.webSocketCall(dbase,rqstReport, rqstAuth);
 
-                var j = schedule.scheduleJob('*/30 * * * * *', function() {
-                    get.getHitBTC("/api/2/order", "GET", function(err, activeOrder) {
+                var j = schedule.scheduleJob('*/3 * * * * *', function() {
+                    api.getHitBTC("/api/2/order", "GET", function(err, activeOrder) {
                         if (err) throw err;
                         if (activeOrder.length != 0) {
                             console.log("newOrder")
