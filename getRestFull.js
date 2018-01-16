@@ -4,6 +4,7 @@ var jsonfile = require('jsonfile');
 var keyfile = './key.json';
 	jsonfile.readFile(keyfile, function (err, obj) {
 if (err) throw err;
+var obj = obj;
 	});
 
 function getHitBTC(path,method,callback) {
