@@ -1,7 +1,7 @@
 module.exports.getHitBTC=getHitBTC;
 var https = require('https');
 var jsonfile = require('jsonfile');
-
+var keyfile = './key.json';
 
 function getHitBTC(path,method,callback) {
     
