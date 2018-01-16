@@ -8,14 +8,14 @@ var treatmentOnOrder = require('./treatmentOnOrder');
 function sell(dbase,ticker, callback) {
     var balanceAvailable = 0;
     //annuler tous les ordres pour ce symbol
-    api.getHitBTC("/api/2/order?symbol=" + ticker.symbol, "delete", function(err, result) {
-        if (err) console.log("delete error" + JSON.stringify(err));
+    //api.getHitBTC("/api/2/order?symbol=" + ticker.symbol, "delete", function(err, result) {
+        //if (err) console.log("delete error" + JSON.stringify(err));
         //Récupérer le dernier trade history d'achat. A savoir combien on l'a acheté
         getReports.getLastBuyTrade(dbase,ticker.symbol, function(lastBuyTrade) {
             //console.log("lastBuyTrade"+lastBuyTrade.price);
             // il faut vérifier combien il y a sur le compte pour cette monnaie
             api.getHitBTC("/api/2/trading/balance", "get", function(err, tradingBalance) {
-                if (err) throw err;
+                if (err) console.log(err);
                 for (var i = 0; i < tradingBalance.length; i++) {
                     if (tradingBalance[i].currency == ticker.symbol.replace(/\"([^(\")"]+)\":/g, "$1:").substr(0, ticker.symbol.replace(/\"([^(\")"]+)\":/g, "$1:").length - 3)) {
                         balanceAvailable = tradingBalance[i].available;
@@ -40,7 +40,7 @@ function sell(dbase,ticker, callback) {
                     }
 
                     askLowestPrice = getTop(askarr, "min");
-                    //console.log("askLowestPrice"+askLowestPrice);
+                    console.log("askLowestPrice"+askLowestPrice);
 
                     //recupérer l'unité prix minimum
                     var collectionName = "symbol";
@@ -54,26 +54,26 @@ function sell(dbase,ticker, callback) {
                             tickSize = message[i].tickSize;
                         }
 
-                        //console.log("ticksize"+tickSize);
+                        console.log("ticksize"+tickSize);
 
                         //si le ticker ask.price est < trade buy, on vent au prix du marché
                         if (askLowestPrice < lastBuyTrade.price) {
                             treatmentOnOrder.placeOrder(ticker.symbol, "sell", "market", "", balanceAvailable);
                             callback();
-                            // console.log("sell everything at market price");
+                            console.log("sell everything at market price");
                         }
                         //poser un ordre sur le prix du ticker ask moins 1 unité avec toute la quantité dispo
                         else {
                             var price = parseFloat(askLowestPrice) - parseFloat(tickSize);
                             treatmentOnOrder.placeOrder(ticker.symbol, "sell", "limit", price, balanceAvailable);
                             callback();
-                            // console.log("price"+price);
+                            console.log("price"+price);
                         }
                     });
                 });
             });
         });
-    });
+    //});
 }
 
 function buy(dbase,ticker, callback) {
