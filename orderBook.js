@@ -1,5 +1,4 @@
 var mongoDb = require('./mongoDb');
-var ioSource = require('./wsClient.js');
 module.exports.updateOrderBook = updateOrderBook;
 
 function updateOrderBook(dbase,orderBookFrame, method, callbackMain) {
@@ -102,29 +101,4 @@ function updateOrderBook(dbase,orderBookFrame, method, callbackMain) {
             callback();
         }
     }
-
-    function sendToWeb() {
-        var query = {
-            symbol: symbol
-        };
-        mongoDb.findRecords(dbase,collectionName, query, {
-            _id: -1
-        }, function(message) {
-            var bid = [];
-            var ask = [];
-
-            for (var i = 0; i < message.length; i++) {
-
-                if (message[i].way == "bid") {
-                    if (message[i].params.size != 0) bid.push(message[i].params.price);
-                } else {
-                    if (message[i].params.size != 0) ask.push(message[i].params.price);
-                }
-            }
-
-            ioSource.io.emit('bid message', bid);
-            ioSource.io.emit('ask message', ask);
-        });
-    }
-
-}
+	
