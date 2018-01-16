@@ -5,6 +5,7 @@ var wsCall = require('./wsCall');
 var keyfile = './key.json';
 var mongoClient = require('mongodb').MongoClient;
 var collectionName = "activeOrders";
+var jsonfile = require('jsonfile');
 
 var rqstReport = {
     "method": "subscribeReports",
