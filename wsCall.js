@@ -16,9 +16,10 @@ function webSocketCall(dbase,rqst, rqstAuth) {
             ws.send(JSON.stringify(message));
             callback();
         }
-        if (rqstAuth != null) sendRequest(rqstAuth, function() {
-            sendRequest(rqst);
-        });
-        else sendRequest(rqst);
+        if (rqstAuth != null) 
+		{
+		sendRequest(rqstAuth, function() {sendRequest(rqst);});
+		}
+        else sendRequest(rqst,function() {sendRequest(rqst);});
     };
 }
