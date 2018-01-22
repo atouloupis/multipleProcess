@@ -13,6 +13,7 @@ function splitFrame(dbase,jsonFrame) {
         if (jsonFrame.method == "ticker") {
 		// console.time("hasAnOrder");
             checkOrder.hasAnOrder(dbase,jsonFrame,function(){
+			console.log (jsonFrame);
 			// console.timeEnd("hasAnOrder");
 			});
         }
