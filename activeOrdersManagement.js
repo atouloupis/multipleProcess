@@ -22,6 +22,8 @@ mongoClient.connect(urlOrderBook, function(err, db) {
 
             jsonfile.readFile(keyfile, function(err, obj) {
                 if (err) throw err;
+				console.log(obj.hitbtc.pKey);
+				console.log(obj.hitbtc.sKey);
                 var rqstAuth = {
                     "method": "login",
                     "params": {
