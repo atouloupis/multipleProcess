@@ -40,6 +40,7 @@ mongoClient.connect(urlOrderBook, function(err, db) {
                             console.log("newOrder");
 							    mongoDb.createCollection(dbase,collectionName, function() {
                             mongoDb.dropCollection(dbase,collectionName, function() {
+							console.log(activeOrder);
                                 mongoDb.insertCollection(dbase,collectionName, activeOrder, function() {
                                     mongoDb.createIndex(dbase,collectionName, "{symbol:1}", function() {});
 									});
