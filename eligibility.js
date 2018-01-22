@@ -88,8 +88,6 @@ function buy(dbase,ticker, callback) {
         }
 
     api.getHitBTC("/api/2/trading/balance", "get", function(err, tradingBalance) {
-	console.log("tradaing balance");
-	console.log(tradingBalance);
         if (err) console.log(err);
         else {
             for (var i = 0; i < tradingBalance.length; i++) {
@@ -98,7 +96,6 @@ function buy(dbase,ticker, callback) {
                 }
 
             }
-console.log("balance"+balanceAvailable);
             if (balanceAvailable != 0) {
                 console.log("balance available");
                 sell(ticker, function() {
