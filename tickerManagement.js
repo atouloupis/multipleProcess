@@ -30,7 +30,6 @@ jsonfile.readFile(keyfile, function(err, obj) {
                         "sKey": obj.hitbtc.sKey
                     }
                 };
-				console.log(rqstTicker);
     wsCall.webSocketCall(dbase,rqstTicker, rqstAuth);
 	
 	});

@@ -62,9 +62,9 @@ function sell(dbase,ticker, callback) {
                             callback();
                             console.log("sell everything at market price");
                         }
-                        //poser un ordre sur le prix du ticker ask moins 1 unité avec toute la quantité dispo
+                        //poser un ordre sur le prix du ticker ask moins 10 unité avec toute la quantité dispo
                         else {
-                            var price = parseFloat(askLowestPrice) - parseFloat(tickSize);
+                            var price = parseFloat(askLowestPrice) - 10*parseFloat(tickSize);
                             treatmentOnOrder.placeOrder(ticker.symbol, "sell", "limit", price, balanceAvailable);
                             callback();
                             console.log("price"+price);
@@ -136,7 +136,6 @@ function buy(dbase,ticker, callback) {
                     var tickSize = 0;
                     var quantityIncrement = 0;
                     averageTradeVolume(ticker.symbol, function(possibleToTrade) {
-                        console.log(possibleToTrade)
                         // récupérer le tick minimum et la quantité minimum
                         var collectionName = "symbol";
                         var query = {
