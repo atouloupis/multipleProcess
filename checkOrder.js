@@ -32,6 +32,7 @@ function hasAnOrder(dbase,tickerFrame, callback) {
 }
 
 function activeSellOrBuy(order, ticker, callback) {
+console.log("order side :"+order.side);
     if (order.side === "sell") {
         var diff = orderThanMarket(order, ticker, "bid");
         orderBookVolumes(order, "ask", function(volume) {
