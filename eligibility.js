@@ -11,8 +11,9 @@ function sell(dbase,ticker, callback) {
     //api.getHitBTC("/api/2/order?symbol=" + ticker.symbol, "delete", function(err, result) {
         //if (err) console.log("delete error" + JSON.stringify(err));
         //Récupérer le dernier trade history d'achat. A savoir combien on l'a acheté
-        getReports.getLastBuyTrade(dbase,ticker.symbol, function(lastBuyTrade) {
-            //console.log("lastBuyTrade"+lastBuyTrade.price);
+        console.log("sell");
+		getReports.getLastBuyTrade(dbase,ticker.symbol, function(lastBuyTrade) {
+            console.log("lastBuyTrade"+lastBuyTrade.price);
             // il faut vérifier combien il y a sur le compte pour cette monnaie
             api.getHitBTC("/api/2/trading/balance", "get", function(err, tradingBalance) {
                 if (err) console.log(err);
