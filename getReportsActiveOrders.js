@@ -27,9 +27,11 @@ mongoDb.findRecords(dbase,collectionName,{"symbol":symbol},{_id: -1},function(al
 function getLastBuyTrade (dbase,symbol,callback)
 {
 api.getHitBTC("/api/2/history/trades","get",function (err,allOrders) {
-console.log(allOrders);
+
 	for (var i=0;i<allOrders.length;i++)
 		{
+		console.log (allOrders[i].symbol)
+		console.log(symbol);
 		if (allOrders[i].side == "buy" && allOrders[i].symbol==symbol) 
 			{
 			console.log("all order ID");
