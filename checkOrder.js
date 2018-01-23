@@ -7,6 +7,7 @@ var symbolDate = {};
 
 
 function hasAnOrder(dbase,tickerFrame, callback) {
+console.log(tickerFrame);
     var symbol = tickerFrame.params.symbol;
     var date = new Date;
     if (date - symbolDate[symbol] > 500 || symbolDate[symbol] === undefined) {
