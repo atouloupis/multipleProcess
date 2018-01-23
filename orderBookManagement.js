@@ -7,16 +7,20 @@ var wsCall = require('./wsCall');
 var mongoClient = require('mongodb').MongoClient;
 jsonfile.readFile(configfile, function(err, obj) {
     if (err) throw err;
-    var symbol = obj.symbol;
+	for (i=0;i<obj.length;i++)
+	{
+    var symbol = obj[i].symbol;
 
     var rqstOrderBook = {
         "method": "subscribeOrderbook",
         "params": {
-            "symbol": symbol
+            "symbol": obj[i].symbol
         },
         "id": 123
     };
-    var rqstAuth = null;
+
+	var rqstAuth = null;
+	
 
     mongoClient.connect(urlOrderBook, function (err, db) {
         if (err) throw err;
@@ -31,4 +35,5 @@ jsonfile.readFile(configfile, function(err, obj) {
             });
         });
     });
+    }
 });
