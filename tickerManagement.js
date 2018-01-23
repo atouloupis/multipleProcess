@@ -4,7 +4,7 @@ var mongoClient = require('mongodb').MongoClient;
 var keyfile = './key.json';
 var configfile = './config.json';
 var jsonfile = require('jsonfile');
-var rqstTicker =[];
+var rqstTicker;
 var symbol=[];
 mongoClient.connect(urlOrderBook, function(err, db) {
     if (err) throw err;
@@ -14,14 +14,14 @@ jsonfile.readFile(configfile, function(err, obj) {
 		for (i=0;i<obj.length;i++)
 	{
 	symbol[i]=obj[i].symbol;
-rqstTicker[i] = {
+rqstTicker = {
     "method": "subscribeTicker",
     "params": {
         "symbol": symbol[i]
     },
     "id": 123
 };
-console.log(rqstTicker[i]);
+console.log(rqstTicker);
 jsonfile.readFile(keyfile, function(err, obj) {
                 if (err) throw err;
                 var rqstAuth = {
@@ -32,10 +32,10 @@ jsonfile.readFile(keyfile, function(err, obj) {
                         "sKey": obj.hitbtc.sKey
                     }
                 };
-			});
-				console.log(rqstTicker[i]);
-    wsCall.webSocketCall(dbase,rqstTicker[i], rqstAuth);
 
+				console.log(rqstTicker);
+    wsCall.webSocketCall(dbase,rqstTicker, rqstAuth);
+			});
 		}
 });
 });
