@@ -6,19 +6,6 @@ var mongoClient = require('mongodb').MongoClient;
 var configfile = './config.json';
 var jsonfile = require('jsonfile');
 
-jsonfile.readFile(configfile, function(err, obj) {
-    if (err) throw err;
-    var symbol = obj.symbol;
-
-    var rqstSnapshotTrades = {
-        "method": "subscribeTrades",
-        "params": {
-            "symbol": symbol
-        },
-        "id": 123
-    };
-    var rqstAuth = null;
-
     mongoClient.connect(urlOrderBook, function (err, db) {
         if (err) throw err;
         dbase = db.db("orderBook");
@@ -26,8 +13,25 @@ jsonfile.readFile(configfile, function(err, obj) {
         mongoDb.createCollection(dbase, "tradeHistory", function () {
             mongoDb.dropCollection(dbase, "tradeHistory", function () {
 
+jsonfile.readFile(configfile, function(err, obj) {
+    if (err) throw err;
+		for (i=0;i<obj.length;i++)
+	{
+    var rqstSnapshotTrades = {
+        "method": "subscribeTrades",
+        "params": {
+            "symbol": obj[i].symbol
+        },
+        "id": 123
+    };
+    var rqstAuth = null;
+
+
+
                 wsCall.webSocketCall(dbase, rqstSnapshotTrades, rqstAuth);
-            });
+            }
+			});
         });
     });
+
 });

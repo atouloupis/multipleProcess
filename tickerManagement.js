@@ -5,21 +5,22 @@ var keyfile = './key.json';
 var configfile = './config.json';
 var jsonfile = require('jsonfile');
 
+mongoClient.connect(urlOrderBook, function(err, db) {
+    if (err) throw err;
+    dbase = db.db("orderBook");
 jsonfile.readFile(configfile, function(err, obj) {
     if (err) throw err;
-    var symbol = obj.symbol;
-
+		for (i=0;i<obj.length;i++)
+	{
 var rqstTicker = {
     "method": "subscribeTicker",
     "params": {
-        "symbol": symbol
+        "symbol": obj[i].symbol
     },
     "id": 123
 };
 
-mongoClient.connect(urlOrderBook, function(err, db) {
-    if (err) throw err;
-    dbase = db.db("orderBook");
+
 jsonfile.readFile(keyfile, function(err, obj) {
                 if (err) throw err;
                 var rqstAuth = {
@@ -31,7 +32,8 @@ jsonfile.readFile(keyfile, function(err, obj) {
                     }
                 };
     wsCall.webSocketCall(dbase,rqstTicker, rqstAuth);
-	
+
 	});
+		}
 });
 });
