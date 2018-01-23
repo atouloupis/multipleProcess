@@ -5,7 +5,7 @@ var jsonfile = require('jsonfile');
 var urlOrderBook = "mongodb://localhost:27017/orderBook";
 var wsCall = require('./wsCall');
 var mongoClient = require('mongodb').MongoClient;
-
+var rqstOrderBook = [];
     mongoClient.connect(urlOrderBook, function (err, db) {
         if (err) throw err;
         dbase = db.db("orderBook");
@@ -16,9 +16,8 @@ jsonfile.readFile(configfile, function(err, obj) {
     if (err) throw err;
 	for (i=0;i<obj.length;i++)
 	{
-    var symbol = obj[i].symbol;
 
-    var rqstOrderBook = {
+    rqstOrderBook[i] = {
         "method": "subscribeOrderbook",
         "params": {
             "symbol": obj[i].symbol
@@ -29,9 +28,9 @@ jsonfile.readFile(configfile, function(err, obj) {
 	var rqstAuth = null;
 	
                 var j = schedule.scheduleJob('*/20 * * * * *', function () {
-                    wsCall.webSocketCall(dbase, rqstOrderBook, rqstAuth);
+                    wsCall.webSocketCall(dbase, rqstOrderBook[i], rqstAuth);
                 });
-                wsCall.webSocketCall(dbase, rqstOrderBook, rqstAuth);
+                wsCall.webSocketCall(dbase, rqstOrderBook[i], rqstAuth);
 			}
             });
         });

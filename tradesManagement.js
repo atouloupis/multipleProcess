@@ -5,7 +5,7 @@ var wsCall = require('./wsCall');
 var mongoClient = require('mongodb').MongoClient;
 var configfile = './config.json';
 var jsonfile = require('jsonfile');
-
+var rqstSnapshotTrades=[];
     mongoClient.connect(urlOrderBook, function (err, db) {
         if (err) throw err;
         dbase = db.db("orderBook");
@@ -17,7 +17,7 @@ jsonfile.readFile(configfile, function(err, obj) {
     if (err) throw err;
 		for (i=0;i<obj.length;i++)
 	{
-    var rqstSnapshotTrades = {
+    rqstSnapshotTrades[i] = {
         "method": "subscribeTrades",
         "params": {
             "symbol": obj[i].symbol
@@ -25,10 +25,7 @@ jsonfile.readFile(configfile, function(err, obj) {
         "id": 123
     };
     var rqstAuth = null;
-
-
-
-                wsCall.webSocketCall(dbase, rqstSnapshotTrades, rqstAuth);
+                wsCall.webSocketCall(dbase, rqstSnapshotTrades[i], rqstAuth);
             }
 			});
         });
