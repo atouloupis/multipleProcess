@@ -19,8 +19,8 @@ var rqstTicker = {
     },
     "id": 123
 };
-console.log(i);
-console.log(obj[i]);
+
+console.log(rqstTicker);
 
 jsonfile.readFile(keyfile, function(err, obj) {
                 if (err) throw err;
