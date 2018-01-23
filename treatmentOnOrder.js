@@ -11,7 +11,7 @@ function cancelOrder(id) {
         params: {
             clientOrderId: id
         },
-        id: 123
+        id: 789
     };
 		// console.log("cancel order");
 	// console.log(query);
@@ -77,7 +77,7 @@ function getTradingBalance() {
     };
     // wsConnection.ws.send(query);
 			// console.log("getTradingBalance");
-	console.log(JSON.stringify(query));
+	// console.log(JSON.stringify(query));
 	
 }
 

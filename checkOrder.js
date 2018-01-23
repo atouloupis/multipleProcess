@@ -7,10 +7,9 @@ var symbolDate = {};
 
 
 function hasAnOrder(dbase,tickerFrame, callback) {
-console.log(tickerFrame);
     var symbol = tickerFrame.params.symbol;
     var date = new Date;
-    if (date - symbolDate[symbol] > 500 || symbolDate[symbol] === undefined) {
+    if (date - symbolDate[symbol] > 0 || symbolDate[symbol] === undefined) {
         symbolDate[symbol] = new Date;
         get.getActiveOrders(dbase,tickerFrame.params.symbol, function(activeOrder) {
 		console.log("activeOrder");
@@ -59,7 +58,6 @@ console.log("order side :"+order.side);
             } else if ((volume.inf + volume.equal) > 10 * order.quantity) {
                 //Si oui on annule l'ordre et on appelle l'eligibilité
                 treatmentOnOrder.cancelOrder(order.clientOrderId);
-                callback();
                 //console.log("order quantity")
                 //console.log( order.quantity)
                 eligibility.eligibilitySell(dbase,ticker, function() {

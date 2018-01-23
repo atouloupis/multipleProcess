@@ -32,8 +32,8 @@ api.getHitBTC("/api/2/history/trades","get",function (err,allOrders) {
 		{
 		if (allOrders[i].side == "buy" && allOrders[i].symbol==symbol) 
 			{
-			console.log("all order ID");
-			console.log(allOrders[i]);
+			// console.log("all order ID");
+			// console.log(allOrders[i]);
 			callback (allOrders[i]);
 			break;
 			}
