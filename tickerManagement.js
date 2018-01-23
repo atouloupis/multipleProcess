@@ -19,9 +19,6 @@ rqstTicker[i] = {
     },
     "id": 123
 };
-
-
-
 jsonfile.readFile(keyfile, function(err, obj) {
                 if (err) throw err;
                 var rqstAuth = {
@@ -32,8 +29,8 @@ jsonfile.readFile(keyfile, function(err, obj) {
                         "sKey": obj.hitbtc.sKey
                     }
                 };
+				console.log("WS call");
     wsCall.webSocketCall(dbase,rqstTicker[i], rqstAuth);
-
 	});
 		}
 });
