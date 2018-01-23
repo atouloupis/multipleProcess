@@ -22,6 +22,7 @@ jsonfile.readFile(configfile, function(err, obj) {
     "id": 123
 });
 	}
+	console.log(rqstTicker);
 	if (i===obj.length)
 	{
 jsonfile.readFile(keyfile, function(err, obj) {
