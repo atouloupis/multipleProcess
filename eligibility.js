@@ -12,6 +12,7 @@ function sell(dbase,ticker, callback) {
         //if (err) console.log("delete error" + JSON.stringify(err));
         //Récupérer le dernier trade history d'achat. A savoir combien on l'a acheté
         console.log("sell");
+		console.log(ticker);
 		getReports.getLastBuyTrade(dbase,ticker.symbol, function(lastBuyTrade) {
             console.log("lastBuyTrade"+lastBuyTrade.price);
             // il faut vérifier combien il y a sur le compte pour cette monnaie
