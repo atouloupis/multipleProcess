@@ -25,6 +25,7 @@ jsonfile.readFile(configfile, function(err, obj) {
             mongoDb.dropCollection(dbase, "orderBookFrame", function () {
                 var j = schedule.scheduleJob('*/20 * * * * *', function () {
                     wsCall.webSocketCall(dbase, rqstOrderBook, rqstAuth);
+					console.log("schedule");
                 });
                 wsCall.webSocketCall(dbase, rqstOrderBook, rqstAuth);
             });
