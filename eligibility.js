@@ -177,8 +177,8 @@ function averageTradeVolume(symbol, callback) {
     //récupérer les 50 derniers trades en vente
     var somme = 0;
     getReports.getLastTrades(dbase,symbol, 50, function(lastTrades) {
-        //calcul moyenne temps de trade en vente
-		if (lastTrades.length != 0)
+        //calcul moyenne temps de trade en vente si supérieur à 10 trades
+		if (lastTrades.length > 10)
 		{
         console.log("lastTrades.length"+lastTrades.length);
         for (var i = 0; i < lastTrades.length - 1; i++) {
@@ -187,7 +187,7 @@ function averageTradeVolume(symbol, callback) {
         var moyenne = somme / lastTrades.length; // moyenne dates de trade
         console.log ("moyenne"+moyenne);
         //Si entre la date d'aujourd'hui et le dernier trade < 10 min et la moyenne des trades < 5 min et le nombre de trades de vente > 10 sur les 50 derniers
-        if (Date.parse(date) - Date.parse(lastTrades[0].timestamp) < 600000 && moyenne < 300000 && lastTrades.length > 10) callback(true);
+        if (Date.parse(date) - Date.parse(lastTrades[0].timestamp) < 600000 && moyenne < 300000) callback(true);
         else callback(false);
 		}
 		else callback(false);
