@@ -32,9 +32,10 @@ jsonfile.readFile(keyfile, function(err, obj) {
                         "sKey": obj.hitbtc.sKey
                     }
                 };
+			});
 				console.log(rqstTicker[i]);
     wsCall.webSocketCall(dbase,rqstTicker[i], rqstAuth);
-	});
+
 		}
 });
 });
