@@ -13,7 +13,7 @@ jsonfile.readFile(configfile, function(err, obj) {
     if (err) throw err;
 		for (i=0;i<obj.length;i++)
 	{
-	console.log(i);
+	console.log(obj.length);
 	symbol[i]=obj[i].symbol;
 rqstTicker = {
     "method": "subscribeTicker",
@@ -34,7 +34,6 @@ jsonfile.readFile(keyfile, function(err, obj) {
                         "sKey": obj.hitbtc.sKey
                     }
                 };
-console.log(i);
 				console.log(rqstTicker);
     wsCall.webSocketCall(dbase,rqstTicker, rqstAuth);
 			});
