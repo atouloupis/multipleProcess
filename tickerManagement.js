@@ -12,7 +12,6 @@ jsonfile.readFile(configfile, function(err, obj) {
     if (err) throw err;
 		for (i=0;i<obj.length;i++)
 	{
-	console.log(obj);
 var rqstTicker = {
     "method": "subscribeTicker",
     "params": {
@@ -20,7 +19,8 @@ var rqstTicker = {
     },
     "id": 123
 };
-
+console.log(i);
+console.log(obj[i]);
 
 jsonfile.readFile(keyfile, function(err, obj) {
                 if (err) throw err;
@@ -32,7 +32,7 @@ jsonfile.readFile(keyfile, function(err, obj) {
                         "sKey": obj.hitbtc.sKey
                     }
                 };
-				console.log(rqstTicker);
+
     wsCall.webSocketCall(dbase,rqstTicker, rqstAuth);
 
 	});
