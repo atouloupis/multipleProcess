@@ -5,6 +5,7 @@ var keyfile = './key.json';
 var configfile = './config.json';
 var jsonfile = require('jsonfile');
 var rqstTicker =[];
+var symbol=[];
 mongoClient.connect(urlOrderBook, function(err, db) {
     if (err) throw err;
     dbase = db.db("orderBook");
@@ -12,11 +13,11 @@ jsonfile.readFile(configfile, function(err, obj) {
     if (err) throw err;
 		for (i=0;i<obj.length;i++)
 	{
-	console.log(obj);
+	symbol[i]=obj[i].symbol;
 rqstTicker[i] = {
     "method": "subscribeTicker",
     "params": {
-        "symbol": obj[i].symbol
+        "symbol": symbol[i]
     },
     "id": 123
 };
