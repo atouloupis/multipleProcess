@@ -12,6 +12,7 @@ jsonfile.readFile(configfile, function(err, obj) {
     if (err) throw err;
 		for (i=0;i<obj.length;i++)
 	{
+	console.log(obj);
 var rqstTicker = {
     "method": "subscribeTicker",
     "params": {
