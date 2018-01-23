@@ -80,7 +80,7 @@ function sell(dbase,ticker, callback) {
 
 function buy(dbase,ticker, callback) {
     var balanceAvailable = 0;
-
+console.log(ticker);
     var collectionName = "activeOrderBook";
     var query = "{symbol:" + ticker.symbol + "}";
     //est ce qu'il y a déjà une certaine quantité en stock. Si oui, got to sell
@@ -100,7 +100,7 @@ function buy(dbase,ticker, callback) {
             }
             if (balanceAvailable != 0) {
                 console.log("balance available");
-                sell(ticker, function() {
+                sell(dbase,ticker, function() {
                     callback();
                 });
             } else {
