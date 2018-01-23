@@ -20,6 +20,7 @@ rqstTicker[i] = {
     },
     "id": 123
 };
+console.log(rqstTicker[i]);
 jsonfile.readFile(keyfile, function(err, obj) {
                 if (err) throw err;
                 var rqstAuth = {
