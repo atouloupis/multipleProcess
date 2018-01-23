@@ -34,7 +34,7 @@ jsonfile.readFile(keyfile, function(err, obj) {
                         "sKey": obj.hitbtc.sKey
                     }
                 };
-for (i=0;i<rqstTicker.length;i++)wsCall.webSocketCall(dbase,rqstTicker[i], rqstAuth);
+wsCall.webSocketCall(dbase,rqstTicker, rqstAuth);
 			});
 	}
 });

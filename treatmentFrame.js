@@ -9,7 +9,6 @@ module.exports.splitFrame = splitFrame;
 function splitFrame(dbase,jsonFrame) {
  
         jsonFrame = JSON.parse(jsonFrame);
-		console.log(jsonFrame);
         if (jsonFrame.method == "ticker") {
 		// console.time("hasAnOrder");
             checkOrder.hasAnOrder(dbase,jsonFrame,function(){

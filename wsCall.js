@@ -17,12 +17,19 @@ function webSocketCall(dbase,rqst, rqstAuth) {
             ws.send(JSON.stringify(message));
             callback();
         }
-        if (rqstAuth != null) 
+        if (rqstAuth != null)
 		{
-		sendRequest(rqstAuth, function() {
-		sendRequest(rqst,function(){});
+            for (var i=0;i<rqst.length;i++)
+            {
+                sendRequest(rqstAuth, function() {
+                    sendRequest(rqst[i], function () {});
 		});
+            }
 		}
-        else sendRequest(rqst,function(){});
-    };
+        else {
+            for (var i=0;i<rqst.length;i++) {
+                sendRequest(rqst[i], function () {});
+            }
+        }
+    }
 }

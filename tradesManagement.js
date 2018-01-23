@@ -15,7 +15,7 @@ var rqstSnapshotTrades=[];
 
 jsonfile.readFile(configfile, function(err, obj) {
     if (err) throw err;
-		for (i=0;i<obj.length;i++)
+		for (var i=0;i<obj.length;i++)
 	{
     rqstSnapshotTrades[i] = {
         "method": "subscribeTrades",
@@ -24,9 +24,9 @@ jsonfile.readFile(configfile, function(err, obj) {
         },
         "id": 123
     };
+    }
     var rqstAuth = null;
-                wsCall.webSocketCall(dbase, rqstSnapshotTrades[i], rqstAuth);
-            }
+                wsCall.webSocketCall(dbase, rqstSnapshotTrades, rqstAuth);
 			});
         });
     });

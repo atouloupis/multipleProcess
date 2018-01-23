@@ -16,7 +16,6 @@ jsonfile.readFile(configfile, function(err, obj) {
     if (err) throw err;
 	for (i=0;i<obj.length;i++)
 	{
-
     rqstOrderBook[i] = {
         "method": "subscribeOrderbook",
         "params": {
@@ -24,14 +23,14 @@ jsonfile.readFile(configfile, function(err, obj) {
         },
         "id": 123
     };
-
+    }
 	var rqstAuth = null;
 	
                 var j = schedule.scheduleJob('*/20 * * * * *', function () {
-                    wsCall.webSocketCall(dbase, rqstOrderBook[i], rqstAuth);
+                    wsCall.webSocketCall(dbase, rqstOrderBook, rqstAuth);
                 });
-                wsCall.webSocketCall(dbase, rqstOrderBook[i], rqstAuth);
-			}
+                wsCall.webSocketCall(dbase, rqstOrderBook, rqstAuth);
+
             });
         });
     });
