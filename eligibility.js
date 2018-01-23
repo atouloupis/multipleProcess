@@ -140,7 +140,6 @@ function buy(dbase,ticker, callback) {
                         mongoDb.findRecords(dbase,collectionName, query, {
                             _id: -1
                         }, function(message) {
-                            // console.log(message)
                             for (var i = 0; i < message.length; i++) {
                                 if (message[i].id = ticker.symbol) {
                                     tickSize = message[i].tickSize;
@@ -180,12 +179,12 @@ function averageTradeVolume(symbol, callback) {
         //calcul moyenne temps de trade en vente si supérieur à 10 trades
 		if (lastTrades.length > 10)
 		{
-        console.log("lastTrades.length"+lastTrades.length);
+        // console.log("lastTrades.length"+lastTrades.length);
         for (var i = 0; i < lastTrades.length - 1; i++) {
             somme += Date.parse(lastTrades[i].timestamp) - Date.parse(lastTrades[i + 1].timestamp);
         }
         var moyenne = somme / lastTrades.length; // moyenne dates de trade
-        console.log ("moyenne"+moyenne);
+        // console.log ("moyenne"+moyenne);
         //Si entre la date d'aujourd'hui et le dernier trade < 10 min et la moyenne des trades < 5 min et le nombre de trades de vente > 10 sur les 50 derniers
         if (Date.parse(date) - Date.parse(lastTrades[0].timestamp) < 600000 && moyenne < 300000) callback(true);
         else callback(false);
