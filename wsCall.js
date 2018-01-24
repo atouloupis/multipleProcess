@@ -1,6 +1,7 @@
 var schedule = require('node-schedule');
 var treatment = require('./treatmentFrame');
 module.exports.webSocketCall = webSocketCall;
+var sendDate;
 
 var WebSocket = require('ws');
 var ws = new WebSocket("wss://api.hitbtc.com/api/2/ws");
@@ -70,13 +71,13 @@ function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
 }
 
 function waitForSocketConnection(ws,message, callback){
-    setTimeout(
-        function () {
+    var date = new Date;
+    if (date - sendDate > 100 || sendDate === undefined) {
+        sendDate = new Date;
             if (ws.readyState === 1) {
 			ws.send(JSON.stringify(message));
                     callback();
                 return;
-
             } 
-        }, 100); // wait 5 milisecond for the connection...
+		}
 }
