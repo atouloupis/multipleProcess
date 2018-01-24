@@ -24,6 +24,7 @@ function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
 
         function sendRequest(message, callback) {
 		waitForSocketConnection(ws,function(){
+		console.log(message);
             ws.send(JSON.stringify(message));
             callback();
         });
