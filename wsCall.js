@@ -52,6 +52,8 @@ function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
 		{
             for (var i=0;i<rqst.length;i++)
             {
+			console.log("scehdule")
+			console.log(rqst)
                 sendRequest(rqstAuth, function() {
                     sendRequest(rqst[i], function () {});
 		});
@@ -71,7 +73,6 @@ function waitForSocketConnection(ws, callback){
     setTimeout(
         function () {
             if (ws.readyState === 1) {
-                console.log("Connection is made")
                 if(callback != null){
                     callback();
                 }
