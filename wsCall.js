@@ -29,7 +29,7 @@ function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
             }
 		}
         else {
-		console.log(rsqt);
+		console.log(rqst);
             for (var i=0;i<rqst.length;i++) {
                 sendRequest(rqst[i], function () {});
             }
