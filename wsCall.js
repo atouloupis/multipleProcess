@@ -10,7 +10,6 @@ function webSocketCall(dbase,rqst, rqstAuth) {
 	console.log("CONNECTED");
         ws.onerror = function(evt) {};
         ws.onmessage = function(evt) {
-		console.log(evt.data);
             treatment.splitFrame(dbase,evt.data);
         };
 
@@ -22,7 +21,6 @@ function webSocketCall(dbase,rqst, rqstAuth) {
 		{
             for (var i=0;i<rqst.length;i++)
             {
-			console.log (rqst[i]);
                 sendRequest(rqstAuth, function() {
                     sendRequest(rqst[i], function () {});
 		});
