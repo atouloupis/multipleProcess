@@ -52,8 +52,6 @@ function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
 		{
             for (var i=0;i<rqst.length;i++)
             {
-			console.log("scehdule")
-			console.log(rqst)
                 sendRequest(rqstAuth, function() {
                     sendRequest(rqst[i], function () {});
 		});
@@ -73,7 +71,7 @@ function waitForSocketConnection(ws,message, callback){
 var date=Date.now();
     setTimeout(
         function () {
-            if (Date.now()-date < 100) {
+            if (Date.now()-date <300) {
 			ws.send(JSON.stringify(message));
                     callback();
                 return;
@@ -81,5 +79,5 @@ var date=Date.now();
 			else {
 			waitForSocketConnection(ws,message, function(){});
 			}    
-        }, 100); // wait 5 milisecond for the connection...
+        }, 300); // wait 5 milisecond for the connection...
 }

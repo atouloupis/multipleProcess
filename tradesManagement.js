@@ -26,7 +26,8 @@ jsonfile.readFile(configfile, function(err, obj) {
     };
     }
     var rqstAuth = null;
-                wsCall.webSocketCall(dbase, rqstSnapshotTrades, rqstAuth);
+		var scheduler=null;
+                wsCall.webSocketCall(dbase, rqstSnapshotTrades, rqstAuth,scheduler);
 			});
         });
     });

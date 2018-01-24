@@ -30,8 +30,8 @@ mongoClient.connect(urlOrderBook, function(err, db) {
                         "sKey": obj.hitbtc.sKey
                     }
                 };
-
-                wsCall.webSocketCall(dbase,rqstReport, rqstAuth);
+                var scheduler = null;
+                wsCall.webSocketCall(dbase,rqstReport, rqstAuth,scheduler);
 
                 var j = schedule.scheduleJob('*/3 * * * * *', function() {
                     api.getHitBTC("/api/2/order", "GET", function(err, activeOrder) {
