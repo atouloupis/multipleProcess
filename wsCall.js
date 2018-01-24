@@ -9,16 +9,21 @@ exports.ws = ws;
 function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
     ws.onopen = function() {
 	console.log("CONNECTED");
-        ws.onerror = function(evt) {};
+        ws.onerror = function(evt) {
+		console.log("error");
+		console.log(evt);
+		};
+		ws.onclose= function(evt){
+		console.log("closing");
+		console.log(evt);
+		};
         ws.onmessage = function(evt) {
             treatment.splitFrame(dbase,evt.data);
         };
 
         function sendRequest(message, callback) {
-		waitForSocketConnection(ws,function(){
             ws.send(JSON.stringify(message));
             callback();
-			});
         }
 		
         if (rqstAuth != null)
