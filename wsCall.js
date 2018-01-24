@@ -26,6 +26,7 @@ function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
 			if (scheduler != null)
 		{                
 			var j = schedule.scheduleJob(scheduler, function () {
+			wsopen();
 				if (rqstAuth != null)
 		{
             for (var i=0;i<rqst.length;i++)
