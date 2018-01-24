@@ -10,6 +10,7 @@ function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
     ws.onopen = function() {
 	console.log("CONNECTED");
         ws.onerror = function(evt) {
+		var ws = new WebSocket("wss://api.hitbtc.com/api/2/ws");
 		console.log("error");
 		console.log(evt);
 		};
