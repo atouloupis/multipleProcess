@@ -21,6 +21,7 @@ function webSocketCall(dbase,rqst, rqstAuth) {
 		{
             for (var i=0;i<rqst.length;i++)
             {
+			console.log(rqst[i]);
                 sendRequest(rqstAuth, function() {
                     sendRequest(rqst[i], function () {});
 		});
