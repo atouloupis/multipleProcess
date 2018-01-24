@@ -44,9 +44,6 @@ function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
         }
 			});
 		}
-	
-	
-	}
 }
 
 function wsopen()
