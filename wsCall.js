@@ -18,7 +18,7 @@ function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
             ws.send(JSON.stringify(message));
             callback();
         }
-
+		
         if (rqstAuth != null)
 		{
             for (var i=0;i<rqst.length;i++)
@@ -29,6 +29,7 @@ function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
             }
 		}
         else {
+		console.log(rsqt);
             for (var i=0;i<rqst.length;i++) {
                 sendRequest(rqst[i], function () {});
             }
