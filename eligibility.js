@@ -31,8 +31,6 @@ function sell(dbase,ticker, callback) {
                 var askLowestPrice;
                 var askarr = [];
                 mongoDb.findRecords(dbase,collectionName, query, {_id: -1}, function(message) {
-				console.log("ask orderBookFrame");
-				console.log(message);
 				for (var i = 0; i < message.length; i++) {
                         if (message[i].params.size != 0.00) {
                             askarr.push(parseFloat(message[i].params.price));
@@ -113,6 +111,8 @@ function buy(dbase,ticker, callback) {
                 mongoDb.findRecords(dbase,collectionName, query, {
                     _id: -1
                 }, function(message) {
+								console.log("ask orderBookFrame");
+				console.log(message);
                     for (var i = 0; i < message.length; i++) {
                         if (message[i].params.size != 0.00 && message[i].way == "bid") {
                             bidarr.push(parseFloat(message[i].params.price));
