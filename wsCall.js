@@ -73,9 +73,7 @@ function waitForSocketConnection(ws, callback){
     setTimeout(
         function () {
             if (ws.readyState === 1) {
-                if(callback != null){
                     callback();
-                }
                 return;
 
             } else {
