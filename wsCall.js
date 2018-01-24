@@ -23,8 +23,8 @@ function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
         };
 
         function sendRequest(message, callback) {
-		waitForSocketConnection(ws,function(){
-            ws.send(JSON.stringify(message));
+		waitForSocketConnection(ws,message,function(){
+            
             callback();
         });
 		}
@@ -69,17 +69,14 @@ function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
 	}
 }
 
-function waitForSocketConnection(ws, callback){
+function waitForSocketConnection(ws,message, callback){
     setTimeout(
         function () {
             if (ws.readyState === 1) {
+			ws.send(JSON.stringify(message));
                     callback();
                 return;
 
-            } else {
-                waitForSocketConnection(ws, callback);
-				ws = new WebSocket("wss://api.hitbtc.com/api/2/ws");
-            }
-
+            } 
         }, 100); // wait 5 milisecond for the connection...
 }
