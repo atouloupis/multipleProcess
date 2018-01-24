@@ -72,6 +72,7 @@ function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
 function waitForSocketConnection(ws, callback){
     setTimeout(
         function () {
+		console.log(ws.readyState);
             if (ws.readyState === 1) {
                     callback();
                 return;
