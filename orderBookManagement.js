@@ -27,8 +27,6 @@ jsonfile.readFile(configfile, function(err, obj) {
 	var rqstAuth = null;
 	
                 var j = schedule.scheduleJob('*/20 * * * * *', function () {
-				console.log("scheduled request orderBook");
-				console.log(rqstOrderBook);
                     wsCall.webSocketCall(dbase, rqstOrderBook, rqstAuth);
                 });
                 wsCall.webSocketCall(dbase, rqstOrderBook, rqstAuth);
