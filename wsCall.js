@@ -7,18 +7,7 @@ var ws = new WebSocket("wss://api.hitbtc.com/api/2/ws");
 exports.ws = ws;
 
 function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
-    ws.onopen = function() {
-	console.log("CONNECTED");
-        ws.onerror = function(evt) {};
-        ws.onmessage = function(evt) {
-            treatment.splitFrame(dbase,evt.data);
-        };
-
-        function sendRequest(message, callback) {
-            ws.send(JSON.stringify(message));
-            callback();
-        }
-		
+		wsopen();
         if (rqstAuth != null)
 		{
             for (var i=0;i<rqst.length;i++)
@@ -58,3 +47,20 @@ function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
 	
 	}
 }
+
+function wsopen()
+{
+    ws.onopen = function() {
+	console.log("CONNECTED");
+        ws.onerror = function(evt) {};
+        ws.onmessage = function(evt) {
+            treatment.splitFrame(dbase,evt.data);
+        };
+
+        
+		}
+}
+function sendRequest(message, callback) {
+            ws.send(JSON.stringify(message));
+            callback();
+        }
