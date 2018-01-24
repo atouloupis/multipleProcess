@@ -78,9 +78,9 @@ var date=Date.now();
 			ws.send(JSON.stringify(message));
                     callback();
                 return;
+				}
 			else {
 			waitForSocketConnection(ws,message, function(){});
-			}
-            } 
+			}    
         }, 1000); // wait 5 milisecond for the connection...
 }
