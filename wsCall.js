@@ -15,10 +15,10 @@ function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
         };
 
         function sendRequest(message, callback) {
-		waitForSocketConnection{
+		waitForSocketConnection(ws,function(){
             ws.send(JSON.stringify(message));
             callback();
-			}
+			});
         }
 		
         if (rqstAuth != null)
