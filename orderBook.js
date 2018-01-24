@@ -33,7 +33,6 @@ var symbol = orderBookFrame.symbol;
     function snapshotAddAsk(orderBookFrame, callback) {
         if (orderBookFrame.ask.length < 1 || orderBookFrame.bid.length < 1) callback("snapshotFinish1");
         var objAdd = [];
-console.log(orderBookFrame.symbol);
         for (var i = 0; i < orderBookFrame.ask.length; i++) {
             objAdd.push({
                 symbol: orderBookFrame.symbol,
