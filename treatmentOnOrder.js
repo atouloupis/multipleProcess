@@ -16,6 +16,7 @@ function cancelOrder(id) {
 		// console.log("cancel order");
 	// console.log(query);
     wsConnection.ws.send(JSON.stringify(query));
+	console.log("cancel order : "+query.params.clientOrderId+" symbol : "+query.params.symbol);
 }
 
 function placeNewOrder(symbol,side,type,price,quantity) {
@@ -48,8 +49,8 @@ function placeNewOrder(symbol,side,type,price,quantity) {
 
     }
 
-	// console.log("new order place");
-	// console.log(query);
+	console.log("new order place : "+query.params.clientOrderId+" symbol : "+query.params.symbol);
+
     wsConnection.ws.send(JSON.stringify(query));
 }
 
