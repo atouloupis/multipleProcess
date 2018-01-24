@@ -111,8 +111,6 @@ function buy(dbase,ticker, callback) {
                 mongoDb.findRecords(dbase,collectionName, query, {
                     _id: -1
                 }, function(message) {
-								console.log("ask orderBookFrame");
-				console.log(message);
                     for (var i = 0; i < message.length; i++) {
                         if (message[i].params.size != 0.00 && message[i].way == "bid") {
                             bidarr.push(parseFloat(message[i].params.price));
@@ -123,8 +121,8 @@ function buy(dbase,ticker, callback) {
                     }
                     bidHighestPrice = getTop(bidarr, "max");
                     askLowestPrice = getTop(askarr, "min");
-                    console.log("bid High" + bidHighestPrice);
-                    console.log("askLowestPrice" + askLowestPrice);
+                    // console.log("bid High" + bidHighestPrice);
+                    // console.log("askLowestPrice" + askLowestPrice);
 
                     //quelle est la différence entre order achat et order vente
                     var orderDiffPerc = ((askLowestPrice / bidHighestPrice) - 1) * 100;
@@ -146,16 +144,16 @@ function buy(dbase,ticker, callback) {
                                 if (message[i].id = ticker.symbol) {
                                     tickSize = message[i].tickSize;
                                     quantityIncrement = message[i].quantityIncrement;
-                                    console.log("symbol" + message[i].id);
-                                    console.log("ticksize" + tickSize);
-                                    console.log("quantityIncrement" + quantityIncrement);
+                                    // console.log("symbol" + message[i].id);
+                                    // console.log("ticksize" + tickSize);
+                                    // console.log("quantityIncrement" + quantityIncrement);
                                 }
                             }
 
                             //si le volume échangé est bon  + la diff entre bid et ask > 2% +  diff entre ask et bid > 10 tick size
-                            console.log("orderDiffPerc" + orderDiffPerc);
-                            console.log("orderDiff" + orderDiff);
-                            console.log("possibleToTrade" + possibleToTrade);
+                            // console.log("orderDiffPerc" + orderDiffPerc);
+                            // console.log("orderDiff" + orderDiff);
+                            // console.log("possibleToTrade" + possibleToTrade);
                             if (possibleToTrade && orderDiffPerc > 1.5 && orderDiff > (30 * tickSize)) {
                                 //poser l'ordre d'achat
                                 var price = parseFloat(bidHighestPrice) + 5*parseFloat(tickSize);
