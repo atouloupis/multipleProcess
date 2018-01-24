@@ -25,11 +25,8 @@ jsonfile.readFile(configfile, function(err, obj) {
     };
     }
 	var rqstAuth = null;
-	
-                var j = schedule.scheduleJob('*/20 * * * * *', function () {
-                    wsCall.webSocketCall(dbase, rqstOrderBook, rqstAuth);
-                });
-                wsCall.webSocketCall(dbase, rqstOrderBook, rqstAuth);
+	var scheduler = "*/20 * * * * *";
+                wsCall.webSocketCall(dbase, rqstOrderBook, rqstAuth,scheduler);
 
             });
         });
