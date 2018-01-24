@@ -15,8 +15,10 @@ function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
         };
 
         function sendRequest(message, callback) {
+		waitForSocketConnection{
             ws.send(JSON.stringify(message));
             callback();
+			}
         }
 		
         if (rqstAuth != null)
@@ -54,4 +56,22 @@ function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
 			});
 		}
 	}
+}
+
+function waitForSocketConnection(ws, callback){
+    setTimeout(
+        function () {
+            if (ws.readyState === 1) {
+                console.log("Connection is made")
+                if(callback != null){
+                    callback();
+                }
+                return;
+
+            } else {
+                console.log("wait for connection...")
+                waitForSocketConnection(ws, callback);
+            }
+
+        }, 5); // wait 5 milisecond for the connection...
 }
