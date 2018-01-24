@@ -16,6 +16,7 @@ function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
 		ws.onclose= function(evt){
 		console.log("closing");
 		console.log(evt);
+		ws = new WebSocket("wss://api.hitbtc.com/api/2/ws");
 		};
         ws.onmessage = function(evt) {
             treatment.splitFrame(dbase,evt.data);
@@ -77,7 +78,6 @@ function waitForSocketConnection(ws, callback){
                 return;
 
             } else {
-				ws = new WebSocket("wss://api.hitbtc.com/api/2/ws");
                 waitForSocketConnection(ws, callback);
             }
 
