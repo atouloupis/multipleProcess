@@ -81,5 +81,5 @@ function waitForSocketConnection(ws, callback){
                 waitForSocketConnection(ws, callback);
             }
 
-        }, 5); // wait 5 milisecond for the connection...
+        }, 100); // wait 5 milisecond for the connection...
 }
