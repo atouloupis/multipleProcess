@@ -27,6 +27,7 @@ function webSocketCall(dbase,rqst, rqstAuth) {
             }
 		}
         else {
+		console.log(rqst);
             for (var i=0;i<rqst.length;i++) {
                 sendRequest(rqst[i], function () {});
             }
