@@ -72,8 +72,8 @@ function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
 function waitForSocketConnection(ws,message, callback){
 var date=Date.now();
     setTimeout(
-	console.log(date-Date.now());
         function () {
+		console.log(date-Date.now());
             if (ws.readyState === 1) {
 			ws.send(JSON.stringify(message));
                     callback();
