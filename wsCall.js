@@ -62,6 +62,7 @@ function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
 
 function waitForSocketConnection(ws,message, callback){
 date=Date.now();
+console.log(date);
     setTimeout(
         function () {
             if (Date.now()-date >300) {
