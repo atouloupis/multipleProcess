@@ -20,7 +20,7 @@ ws.onopen = function() {
         ws.onmessage = function(evt) {
             treatment.splitFrame(dbase,evt.data);
         };
-
+}
 function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
     	
         if (rqstAuth != null)
@@ -58,7 +58,6 @@ function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
 			});
 		}
 	}
-}
 
 function waitForSocketConnection(ws,message, callback){
 var date=Date.now();
