@@ -5,6 +5,7 @@ module.exports.webSocketCall = webSocketCall;
 var WebSocket = require('ws');
 var ws = new WebSocket("wss://api.hitbtc.com/api/2/ws");
 exports.ws = ws;
+var date=Date.now();
 
 ws.onopen = function() {
 	console.log("CONNECTED");
@@ -60,7 +61,6 @@ function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
 	}
 
 function waitForSocketConnection(ws,message, callback){
-var date=Date.now();
     setTimeout(
         function () {
             if (Date.now()-date <100) {
