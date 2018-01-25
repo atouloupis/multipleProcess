@@ -72,7 +72,7 @@ var date=Date.now();
 			else {
 			waitForSocketConnection(ws,message, function(){});
 			}    
-        }, 100); // wait 5 milisecond for the connection...
+        }, 300); // wait 5 milisecond for the connection...
 	}	
 function sendRequest(message, callback) {
 waitForSocketConnection(ws,message,function(){   
