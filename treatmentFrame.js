@@ -18,7 +18,7 @@ function splitFrame(dbase,jsonFrame) {
         if (jsonFrame.method == "snapshotTrades" | jsonFrame.method == "updateTrades") {
             var tradeHistoryParams = jsonFrame.params;
             if (tradeHistoryParams != "undefined") {
-                updateTradeHistory.newTradeHistory(dbase,tradeHistoryParams);
+                updateTradeHistory.newTradeHistory(dbase,tradeHistoryParams,jsonFrame.method);
             }
         }
         if (jsonFrame.method == "activeOrders" | jsonFrame.method == "report") {
