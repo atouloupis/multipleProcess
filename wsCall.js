@@ -6,8 +6,7 @@ var WebSocket = require('ws');
 var ws = new WebSocket("wss://api.hitbtc.com/api/2/ws");
 exports.ws = ws;
 
-function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
-    ws.onopen = function() {
+ws.onopen = function() {
 	console.log("CONNECTED");
         ws.onerror = function(evt) {
 		console.log("error");
@@ -22,14 +21,8 @@ function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
             treatment.splitFrame(dbase,evt.data);
         };
 
-        function sendRequest(message, callback) {
-		waitForSocketConnection(ws,message,function(){
-            
-            callback();
-        });
-		}
-		
-		
+function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
+    	
         if (rqstAuth != null)
 		{
             for (var i=0;i<rqst.length;i++)
@@ -80,4 +73,11 @@ var date=Date.now();
 			waitForSocketConnection(ws,message, function(){});
 			}    
         }, 300); // wait 5 milisecond for the connection...
+		
+function sendRequest(message, callback) {
+waitForSocketConnection(ws,message,function(){
+    
+    callback();
+});
+}
 }
