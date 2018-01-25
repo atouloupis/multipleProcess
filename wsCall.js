@@ -40,7 +40,6 @@ function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
             }
 		}
         else {
-		console.log("sendReq with Auth == null");
             for (var i=0;i<rqst.length;i++) {
                 sendRequest(rqst[i], function () {});
             }
@@ -48,7 +47,6 @@ function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
     
 			if (scheduler != null)
 		{
-console.log("scheduler");		
 			var j = schedule.scheduleJob(scheduler, function () {
 				if (rqstAuth != null)
 		{
