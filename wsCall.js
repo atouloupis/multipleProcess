@@ -65,7 +65,6 @@ function waitForSocketConnection(ws,message, callback){
         function () {
             if (Date.now()-date >100) {
 			date=Date.now();
-			console.log(Date.now()-date);
 			ws.send(JSON.stringify(message));
                     callback();
                 return;
