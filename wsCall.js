@@ -63,7 +63,7 @@ function waitForSocketConnection(ws,message, callback){
 var date=Date.now();
     setTimeout(
         function () {
-            if (Date.now()-date <300) {
+            if (Date.now()-date <50) {
 			ws.send(JSON.stringify(message));
                     callback();
                 return;
@@ -71,7 +71,7 @@ var date=Date.now();
 			else {
 			waitForSocketConnection(ws,message, function(){});
 			}    
-        }, 300); // wait 5 milisecond for the connection...
+        }, 50); // wait 5 milisecond for the connection...
 	}	
 function sendRequest(message, callback) {
 waitForSocketConnection(ws,message,function(){   
