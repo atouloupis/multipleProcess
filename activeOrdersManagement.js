@@ -8,10 +8,10 @@ var mongoClient = require('mongodb').MongoClient;
 var collectionName = "activeOrders";
 var api = require('./getRestFull');
 
-var rqstReport = {
+var rqstReport = [{
     "method": "subscribeReports",
     "params": {}
-};
+}];
 
 mongoClient.connect(urlOrderBook, function(err, db) {
     if (err) throw err;
