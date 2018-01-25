@@ -48,7 +48,7 @@ var symbol = orderBookFrame.symbol;
             });
         }
         mongoDb.insertCollection(dbase,collectionName, objAdd, function() {
-		console.log(objAdd[0].symbol);
+		// console.log(objAdd[0].symbol);
             mongoDb.createIndex(dbase,collectionName, "{symbol:1,way:-1}", function() {});
             callback("snapshotFinish2");
         });
