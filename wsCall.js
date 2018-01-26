@@ -28,9 +28,9 @@ function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
 		{
             for (var j=0;j<rqst.length;j++)
             {
-                sendRequest(rqstAuth, function() {
+                sendRequest(rqstAuth, function() {});
                     sendRequest(rqst[j], function () {});
-		});
+		
             }
 		}
         else {
