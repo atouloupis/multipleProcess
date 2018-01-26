@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 
-var activeOrdersManagement = require('./activeOrdersManagement');
-var orderBookManagement = require('./orderBookManagement');
-var symbolManagement = require('./symbolManagement');
-var tradesManagement =require('./tradesManagement');
+require('./activeOrdersManagement');
+require('./orderBookManagement');
+require('./symbolManagement');
+require('./tradesManagement');
+require('./tickerManagement');
