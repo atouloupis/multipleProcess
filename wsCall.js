@@ -55,7 +55,7 @@ function webSocketCall(dbase,rqst,scheduler) {
 function waitForSocketConnection(ws,message, callback){
     setTimeout(
         function () {
-            if (Date.now()-date >200 && ws.readyState===1) {
+            if (Date.now()-date >150 && ws.readyState===1) {
 			date=Date.now();
 			ws.send(JSON.stringify(message));
                     callback();
@@ -64,7 +64,7 @@ function waitForSocketConnection(ws,message, callback){
 			else {
 			waitForSocketConnection(ws,message, function(){});
 			}
-        }, 200); // wait 5 milisecond for the connection...
+        }, 50); // wait 5 milisecond for the connection...
     //callback();
 	}
 function sendRequest(message, callback) {
