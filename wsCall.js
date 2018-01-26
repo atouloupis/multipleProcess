@@ -56,9 +56,8 @@ function waitForSocketConnection(ws,message, callback){
     setTimeout(
         function () {
             if (Date.now()-date >1000 && ws.readyState===1) {
-                console.log(message)
 			date=Date.now();
-			//ws.send(JSON.stringify(message));
+			ws.send(JSON.stringify(message));
                     callback();
                 return;
 				}
