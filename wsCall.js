@@ -23,6 +23,9 @@ jsonfile.readFile(keyfile, function(err, obj) {
 			ws.onerror = function(evt) {
 			console.log("error");
 			console.log(evt);
+			if (ws.readyState===3) {
+			ws = new WebSocket("wss://api.hitbtc.com/api/2/ws");
+			}
 			};
 			ws.onclose= function(evt){
 			console.log("closing");
