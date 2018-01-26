@@ -1,61 +1,52 @@
 var schedule = require('node-schedule');
 var treatment = require('./treatmentFrame');
 module.exports.webSocketCall = webSocketCall;
-
+var keyfile = './key.json';
+var jsonfile = require('jsonfile');
 var WebSocket = require('ws');
 var ws = new WebSocket("wss://api.hitbtc.com/api/2/ws");
 exports.ws = ws;
 var date=Date.now();
 var a=0;
-
-ws.onopen = function() {
-	console.log("CONNECTED");
-        ws.onerror = function(evt) {
-		console.log("error");
-		console.log(evt);
-		};
-		ws.onclose= function(evt){
-		console.log("closing");
-		console.log(evt);
-		ws = new WebSocket("wss://api.hitbtc.com/api/2/ws");
-		};
-        ws.onmessage = function(evt) {
-            treatment.splitFrame(dbase,evt.data);
-        };
+jsonfile.readFile(keyfile, function(err, obj) {
+    if (err) throw err;
+    var rqstAuth = {
+        "method": "login",
+        "params": {
+            "algo": "BASIC",
+            "pKey": obj.hitbtc.pKey,
+            "sKey": obj.hitbtc.sKey
+        }
+    
+	ws.onopen = function() {
+		console.log("CONNECTED");
+			ws.onerror = function(evt) {
+			console.log("error");
+			console.log(evt);
+			};
+			ws.onclose= function(evt){
+			console.log("closing");
+			console.log(evt);
+			ws = new WebSocket("wss://api.hitbtc.com/api/2/ws");
+			};
+			ws.onmessage = function(evt) {
+				treatment.splitFrame(dbase,evt.data);
+			};
+			sendRequest(rqstAuth, function() {});
+	};
 };
-function webSocketCall(dbase,rqst, rqstAuth,scheduler) {
-        if (rqstAuth != null)
-		{
-            for (var j=0;j<rqst.length;j++)
-            {
-                sendRequest(rqstAuth, function() {});
-                    sendRequest(rqst[j], function () {});
-		
-            }
-		}
-        else {
+
+function webSocketCall(dbase,rqst,scheduler) {
             for (var i=0;i<rqst.length;i++) {
 
                 sendRequest(rqst[i], function () {});
             }
-        }
     
 			if (scheduler != null)
 		{
 			schedule.scheduleJob(scheduler, function () {
-				if (rqstAuth != null)
-		{
-            for (var i=0;i<rqst.length;i++)
-            {
-                sendRequest(rqstAuth, function() {
-                    sendRequest(rqst[i], function () {});
-		});
-            }
-		}
-        else {
             for (var i=0;i<rqst.length;i++) {
                 sendRequest(rqst[i], function () {});
-            }
         }
 			});
 		}

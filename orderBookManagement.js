@@ -24,9 +24,8 @@ jsonfile.readFile(configfile, function(err, obj) {
         "id": 123
     };
     }
-	var rqstAuth = null;
 	var scheduler = "*/40 * * * * *";
-                wsCall.webSocketCall(dbase, rqstOrderBook, rqstAuth,scheduler);
+                wsCall.webSocketCall(dbase, rqstOrderBook,scheduler);
 
             });
         });

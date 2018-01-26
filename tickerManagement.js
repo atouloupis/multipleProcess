@@ -1,7 +1,6 @@
 var urlOrderBook = "mongodb://localhost:27017/orderBook";
 var wsCall = require('./wsCall');
 var mongoClient = require('mongodb').MongoClient;
-var keyfile = './key.json';
 var configfile = './config.json';
 var jsonfile = require('jsonfile');
 var rqstTicker=[];
@@ -24,18 +23,9 @@ jsonfile.readFile(configfile, function(err, obj) {
 	}
 	if (i===obj.length)
 	{
-jsonfile.readFile(keyfile, function(err, obj) {
-                if (err) throw err;
-                var rqstAuth = {
-                    "method": "login",
-                    "params": {
-                        "algo": "BASIC",
-                        "pKey": obj.hitbtc.pKey,
-                        "sKey": obj.hitbtc.sKey
-                    }
-                };
+
                 var scheduler=null;
-wsCall.webSocketCall(dbase,rqstTicker, rqstAuth,scheduler);
+wsCall.webSocketCall(dbase,rqstTicker,scheduler);
 			});
 	}
 });

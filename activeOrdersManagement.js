@@ -2,8 +2,6 @@ var schedule = require('node-schedule');
 var mongoDb = require('./mongoDb');
 var urlOrderBook = "mongodb://localhost:27017/orderBook";
 var wsCall = require('./wsCall');
-var keyfile = './key.json';
-var jsonfile = require('jsonfile');
 var mongoClient = require('mongodb').MongoClient;
 var collectionName = "activeOrders";
 var api = require('./getRestFull');
@@ -19,19 +17,8 @@ mongoClient.connect(urlOrderBook, function(err, db) {
 
     mongoDb.createCollection(dbase,collectionName, function() {
         mongoDb.dropCollection(dbase,collectionName, function() {
-
-            jsonfile.readFile(keyfile, function(err, obj) {
-                if (err) throw err;
-                var rqstAuth = {
-                    "method": "login",
-                    "params": {
-                        "algo": "BASIC",
-                        "pKey": obj.hitbtc.pKey,
-                        "sKey": obj.hitbtc.sKey
-                    }
-                };
                 var scheduler = null;
-                wsCall.webSocketCall(dbase,rqstReport, rqstAuth,scheduler);
+                wsCall.webSocketCall(dbase,rqstReport,scheduler);
 
                 var j = schedule.scheduleJob('*/3 * * * * *', function() {
                     api.getHitBTC("/api/2/order", "GET", function(err, activeOrder) {
