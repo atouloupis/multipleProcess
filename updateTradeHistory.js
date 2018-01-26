@@ -5,7 +5,7 @@ var collectionName = "tradeHistory";
 function newTradeHistory(dbase,frame,method) {
 var queryInsert=[];
 if (method == "snapshotTrades") {
-	console.log(frame.symbol);
+	// console.log(frame.symbol);
 	deleteQuery = {symbol:frame.symbol};
         mongoDb.deleteRecords(dbase,collectionName, deleteQuery, function() {
         for (var i = 0; i < frame.data.length; i++) {
