@@ -34,7 +34,7 @@ jsonfile.readFile(keyfile, function(err, obj) {
 			};
 			sendRequest(rqstAuth, function() {});
 	};
-};
+});
 
 function webSocketCall(dbase,rqst,scheduler) {
             for (var i=0;i<rqst.length;i++) {
