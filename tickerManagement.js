@@ -23,10 +23,9 @@ jsonfile.readFile(configfile, function(err, obj) {
 	}
 	if (i===obj.length)
 	{
-
                 var scheduler=null;
 wsCall.webSocketCall(dbase,rqstTicker,scheduler);
-			});
 	}
+			});
 });
 });
