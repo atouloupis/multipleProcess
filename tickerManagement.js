@@ -28,4 +28,3 @@ wsCall.webSocketCall(dbase,rqstTicker,scheduler);
 	}
 			});
 });
-});
