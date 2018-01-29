@@ -59,7 +59,7 @@ function webSocketCall(dbase,rqst,scheduler) {
 function waitForSocketConnection(ws,message, callback){
     setTimeout(
         function () {
-            if (Date.now()-date >150 && ws.readyState===1) {
+            if (Date.now()-date >200 && ws.readyState===1) {
 			date=Date.now();
 			console.log("x")
 			ws.send(JSON.stringify(message));
