@@ -24,7 +24,7 @@ jsonfile.readFile(configfile, function(err, obj) {
         "id": 123
     };
     }
-	var scheduler = "*/60 * * * * *";
+	var scheduler = "*/5 * * * *";
                 wsCall.webSocketCall(dbase, rqstOrderBook,scheduler);
 
             });
