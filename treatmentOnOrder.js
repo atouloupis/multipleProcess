@@ -15,7 +15,7 @@ function cancelOrder(id) {
     };
 		// console.log("cancel order");
 	// console.log(query);
-    wsConnection.ws.send(JSON.stringify(query));
+    wsConnection.ws.send(query);
 	console.log("cancel order : "+query.params.clientOrderId+" symbol : "+query.params.symbol);
 }
 
@@ -51,7 +51,7 @@ function placeNewOrder(symbol,side,type,price,quantity) {
 
 	// console.log("new order place : "+query.params.clientOrderId+" symbol : "+query.params.symbol);
 console.log(query);
-    wsConnection.ws.send(JSON.stringify(query));
+    wsConnection.ws.send(query);
 }
 
 function cancelReplaceOrder(clientId,requestId,quantity,price) {
@@ -90,7 +90,7 @@ function getActiveOrders() {
 	};
 			// console.log("getActiveOrders");
 	// console.log(query);
-    wsConnection.ws.send(JSON.stringify(query));
+    wsConnection.ws.send(query);
 }
 
 function generateUUID () { // Public Domain/MIT
