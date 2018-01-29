@@ -5,7 +5,6 @@ var keyfile = './key.json';
 var jsonfile = require('jsonfile');
 var WebSocket = require('ws');
 var ws = new WebSocket("wss://api.hitbtc.com/api/2/ws");
-exports.ws = ws;
 var date=Date.now();
 var a=0;
 jsonfile.readFile(keyfile, function(err, obj) {
