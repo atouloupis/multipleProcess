@@ -65,6 +65,10 @@ function waitForSocketConnection(ws,message, callback){
                     callback();
                 return;
 				}
+			else if (ws.readyState===3)
+			{
+			ws = new WebSocket("wss://api.hitbtc.com/api/2/ws");
+			}
 			else {
 			waitForSocketConnection(ws,message, function(){});
 			}
