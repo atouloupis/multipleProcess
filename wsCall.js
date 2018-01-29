@@ -25,12 +25,14 @@ jsonfile.readFile(keyfile, function(err, obj) {
 			console.log(evt);
 			if (ws.readyState===3) {
 			ws = new WebSocket("wss://api.hitbtc.com/api/2/ws");
+			exports.ws = ws;
 			}
 			};
 			ws.onclose= function(evt){
 			console.log("closing");
 			console.log(evt);
 			ws = new WebSocket("wss://api.hitbtc.com/api/2/ws");
+			exports.ws = ws;
 			};
 			ws.onmessage = function(evt) {
 				treatment.splitFrame(dbase,evt.data);
@@ -68,6 +70,7 @@ function waitForSocketConnection(ws,message, callback){
 			else if (ws.readyState===3)
 			{
 			ws = new WebSocket("wss://api.hitbtc.com/api/2/ws");
+			exports.ws = ws;
 			}
 			else {
 			waitForSocketConnection(ws,message, function(){});
