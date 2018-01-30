@@ -1,6 +1,7 @@
 var schedule = require('node-schedule');
 var treatment = require('./treatmentFrame');
 module.exports.webSocketCall = webSocketCall;
+module.exports.sendRequest = sendRequest;
 var keyfile = './key.json';
 var jsonfile = require('jsonfile');
 var WebSocket = require('ws');
@@ -59,10 +60,13 @@ function webSocketCall(dbase,rqst,scheduler) {
 function waitForSocketConnection(ws,message, callback){
     setTimeout(
         function () {
-            if (Date.now()-date >1000 && ws.readyState===1) {
+            if (Date.now()-date >200 && ws.readyState===1) {
+                a=a+1;
 			date=Date.now();
 			var date1 = new Date().toISOString();
 			console.log(date1);
+			console.log(a);
+			console.log(message);
 			ws.send(JSON.stringify(message));
                     callback();
                 return;

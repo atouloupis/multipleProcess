@@ -25,7 +25,8 @@ jsonfile.readFile(configfile, function(err, obj) {
         "id": 123
     };
     }
-		var scheduler="*/5 * * * *";
+    var scheduler = null;
+    //var scheduler="*/5 * * * *";
                 wsCall.webSocketCall(dbase, rqstSnapshotTrades,scheduler);
 			});
         });

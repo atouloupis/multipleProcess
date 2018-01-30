@@ -15,7 +15,7 @@ function cancelOrder(id) {
     }];
 		// console.log("cancel order");
 	// console.log(query);
-    wsConnection.webSocketCall(query);
+    wsConnection.sendRequest(query,function(){});
 	console.log("cancel order : "+query.params.clientOrderId+" symbol : "+query.params.symbol);
 }
 
@@ -51,7 +51,7 @@ function placeNewOrder(symbol,side,type,price,quantity) {
 
 	// console.log("new order place : "+query.params.clientOrderId+" symbol : "+query.params.symbol);
 console.log(query);
-    wsConnection.webSocketCall(query);
+    wsConnection.sendRequest(query,function(){});
 }
 
 function cancelReplaceOrder(clientId,requestId,quantity,price) {
@@ -65,7 +65,7 @@ function cancelReplaceOrder(clientId,requestId,quantity,price) {
         },
         id: 123
     }];
-    wsConnection.webSocketCall(query);
+    wsConnection.sendRequest(query,function(){});
 		console.log("cancel or replace order");
 	console.log(JSON.stringify(query));
 }
@@ -78,7 +78,7 @@ function getTradingBalance() {
     }];
     // wsConnection.ws.send(query);
 			// console.log("getTradingBalance");
-	// console.log(JSON.stringify(query));
+    //wsConnection.sendRequest(query,function(){});
 	
 }
 
@@ -90,7 +90,7 @@ function getActiveOrders() {
 	}];
 			// console.log("getActiveOrders");
 	// console.log(query);
-    wsConnection.webSocketCall(query);
+    wsConnection.sendRequest(query,function(){});
 }
 
 function generateUUID () { // Public Domain/MIT
