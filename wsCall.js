@@ -60,7 +60,7 @@ function webSocketCall(dbase,rqst,scheduler) {
 function waitForSocketConnection(ws,message, callback){
     setTimeout(
         function () {
-            if (Date.now()-date >200 && ws.readyState===1) {
+            if (Date.now()-date >300 && ws.readyState===1) {
                 a=a+1;
 			date=Date.now();
 			var date1 = new Date().toISOString();

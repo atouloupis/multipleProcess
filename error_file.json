@@ -1,0 +1,16 @@
+<--- Last few GCs --->
+
+1727896 ms: Scavenge 1382.7 (1457.9) -> 1382.7 (1457.9) MB, 1.0 / 0 ms (+ 1.2 ms in 2 steps since last GC) [allocation failure] [incremental marking delaying mark-sweep].
+1729404 ms: Mark-sweep 1382.7 (1457.9) -> 1380.3 (1457.9) MB, 1508.2 / 0 ms (+ 6.3 ms in 27 steps since start of marking, biggest step 1.3 ms) [last resort gc].
+1730729 ms: Mark-sweep 1380.3 (1457.9) -> 1354.6 (1457.9) MB, 1325.0 / 0 ms [last resort gc].
+
+
+<--- JS stacktrace --->
+
+==== JS stack trace =========================================
+
+Security context: 0x22b5f9ab4629 <JS Object>
+1: messageHandler [/home/andreas/WebstormProjects/multipleProcess/node_modules/mongodb-core/lib/connection/pool.js:~452] [pc=0x18be7f27219b] (this=0x38b34f817629 <JS Object>,message=0xdad46365159 <JS Object>,connection=0x38b34f817629 <JS Object>)
+2: /* anonymous */(aka /* anonymous */) [/home/andreas/WebstormProjects/multipleProcess/node_modules/mongodb-core/lib/connection/connection.js...
+
+FATAL ERROR: CALL_AND_RETRY_LAST Allocation failed - process out of memory

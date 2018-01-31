@@ -6,22 +6,22 @@ module.exports.tradingBalance = getTradingBalance;
 module.exports.activeOrders = getActiveOrders;
 
 function cancelOrder(id) {
-    var query = [{
+    var query = {
         method: "cancelOrder",
         params: {
             clientOrderId: id
         },
         id: 789
-    }];
+    };
 		// console.log("cancel order");
 	// console.log(query);
     wsConnection.sendRequest(query,function(){});
-	console.log("cancel order : "+query.params.clientOrderId+" symbol : "+query.params.symbol);
+	//console.log("cancel order : "+query.params.clientOrderId+" symbol : "+query.params.symbol);
 }
 
 function placeNewOrder(symbol,side,type,price,quantity) {
     if (type=="limit"){
-    var query = [{
+    var query = {
         method: "newOrder",
         params: {
             clientOrderId: generateUUID(),//Required parameter. Uniqueness must be guaranteed within a single trading day, including all active orders.
@@ -32,9 +32,9 @@ function placeNewOrder(symbol,side,type,price,quantity) {
             quantity: quantity
         },
         id: 456
-    }];}
+    };}
     else {
-        var query = [{
+        var query = {
             method: "newOrder",
             params: {
                 clientOrderId: generateUUID(),//Required parameter. Uniqueness must be guaranteed within a single trading day, including all active orders.
@@ -45,17 +45,17 @@ function placeNewOrder(symbol,side,type,price,quantity) {
                 quantity: quantity
             },
             id: 456
-        }];
+        };
 
     }
 
 	// console.log("new order place : "+query.params.clientOrderId+" symbol : "+query.params.symbol);
-console.log(query);
+//console.log(query);
     wsConnection.sendRequest(query,function(){});
 }
 
 function cancelReplaceOrder(clientId,requestId,quantity,price) {
-    var query = [{
+    var query = {
         method: "cancelReplaceOrder",
         params: {
             clientOrderId: clientId,//Replaced order
@@ -64,18 +64,18 @@ function cancelReplaceOrder(clientId,requestId,quantity,price) {
             price: price
         },
         id: 123
-    }];
+    };
     wsConnection.sendRequest(query,function(){});
 		console.log("cancel or replace order");
-	console.log(JSON.stringify(query));
+	//console.log(JSON.stringify(query));
 }
 
 function getTradingBalance() {
-    var query = [{
+    var query = {
         method: "getTradingBalance",
         params: {},
         id: "tradingBalance"
-    }];
+    };
     // wsConnection.ws.send(query);
 			// console.log("getTradingBalance");
     //wsConnection.sendRequest(query,function(){});
@@ -83,11 +83,11 @@ function getTradingBalance() {
 }
 
 function getActiveOrders() {
-    var query = [{
+    var query = {
 	method: "getOrders",
 	params: {},
 	id: "activeOrders"
-	}];
+	};
 			// console.log("getActiveOrders");
 	// console.log(query);
     wsConnection.sendRequest(query,function(){});

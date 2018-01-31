@@ -96,5 +96,7 @@
 {"symbol":"XDNETH"},
 {"symbol":"PIXETH"},
 {"symbol":"TIMEETH"},
-{"symbol":"AVTETH"}
+{"symbol":"AVTETH"},
+{"symbol":"SWFTCETH"},
+{"symbol":"NDCETH"}
 ]

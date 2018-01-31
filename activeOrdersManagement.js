@@ -20,18 +20,18 @@ mongoClient.connect(urlOrderBook, function(err, db) {
                 var scheduler = null;
                 wsCall.webSocketCall(dbase,rqstReport,scheduler);
 
-                var j = schedule.scheduleJob('*/3 * * * * *', function() {
+                var j = schedule.scheduleJob('*/55 * * * * *', function() {
                     api.getHitBTC("/api/2/order", "GET", function(err, activeOrder) {
                         if (err) console.log (err);
                         else if (activeOrder.length != 0) {
                             console.log("newOrder");
-							    mongoDb.createCollection(dbase,collectionName, function() {
+							    //mongoDb.createCollection(dbase,collectionName, function() {
                             mongoDb.dropCollection(dbase,collectionName, function() {
                                 mongoDb.insertCollection(dbase,collectionName, activeOrder, function() {
-                                    mongoDb.createIndex(dbase,collectionName, "{symbol:1}", function() {});
+                                    mongoDb.createIndex(dbase,collectionName, "{symbol:1,clientOrderId:1}", function() {});
 									});
                                 });
-                            });
+                            //});
                         }
                     });
                 });
