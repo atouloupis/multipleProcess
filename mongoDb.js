@@ -20,7 +20,7 @@ function createCollection (dbase,collectionName,callback) {
 }
 
 function insertMongoCollection(dbase,collectionName, myObj, callback) {
-    console.log(collectionName)
+    //console.log(collectionName)
 	dbase.collection(collectionName).insertMany(myObj, function(err, res) {
         if (err)
         {console.log(err);

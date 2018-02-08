@@ -1,4 +1,3 @@
-var schedule = require('node-schedule');
 var mongoDb = require('./mongoDb');
 var configfile = './config.json';
 var jsonfile = require('jsonfile');
@@ -6,6 +5,29 @@ var urlOrderBook = "mongodb://localhost:27017/orderBook";
 var wsCall = require('./wsCall');
 var mongoClient = require('mongodb').MongoClient;
 var rqstOrderBook = [];
+var schedule = require('node-schedule');
+var api = require('./getRestFull');
+
+var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+var port = process.env.PORT || 3000;
+
+exports.io = io;
+app.get('/', function (req, res) {
+    res.sendFile(__dirname + '/index.html');
+});
+
+http.listen(port, function () {
+    console.log('listening on *:' + port);
+});
+
+
+
+
+
+
+
     mongoClient.connect(urlOrderBook, function (err, db) {
         if (err) throw err;
         dbase = db.db("orderBook");
@@ -25,11 +47,53 @@ jsonfile.readFile(configfile, function(err, obj) {
     };
     }
     var scheduler = null;
-	//var scheduler = "*/5 * * * *";
+	//var scheduler = "*/1 * * * *";
                 wsCall.webSocketCall(dbase, rqstOrderBook,scheduler);
+    var j = schedule.scheduleJob('*/10 * * * * *', function() {
+        importRest(obj);
+    });
 
-            });
+    });
         });
     });
 
-});
+
+    function importRest(config) {
+        for (var j = 0; j < config.length; j++) {
+            var symbol=config[j].symbol;
+            api.getHitBTC("/api/2/public/orderbook/"+symbol, "GET", function (err, orderBookFrame) {
+                if (err) console.log(err);
+                else if (orderBookFrame.ask===undefined)null;
+                    else if (orderBookFrame.ask.length < 1 || orderBookFrame.bid.length < 1)null;
+                    else {
+                        var objAdd = [];
+                        for (var i = 0; i < orderBookFrame.ask.length; i++) {
+                            objAdd.push({
+                                symbol: symbol,
+                                way: "ask",
+                                params: orderBookFrame.ask[i]
+                            });
+                        }
+                        for (var k = 0; k < orderBookFrame.bid.length; k++) {
+                            objAdd.push({
+                                symbol: symbol,
+                                way: "bid",
+                                params: orderBookFrame.bid[k]
+                            });
+                        }
+
+                        //mongoDb.createCollection(dbase, "orderBookFrame", function () {
+                            mongoDb.dropCollection(dbase, "orderBookFrame", function () {
+                                mongoDb.insertCollection(dbase, "orderBookFrame", objAdd, function () {
+                                    mongoDb.createIndex(dbase, "orderBookFrame", "{symbol:1,way:-1}", function () {
+                                    });
+                                });
+
+                            });
+                        //});
+                    }
+            });
+        }
+
+    }
+    });

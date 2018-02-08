@@ -1,6 +1,8 @@
 var mongoDb = require('./mongoDb');
 module.exports.updateOrderBook = updateOrderBook;
 var collectionName = "orderBookFrame";
+var ioSource = require('./orderBookManagement.js');
+
 
 
 function updateOrderBook(dbase,orderBookFrame, method, callbackMain) {
@@ -24,7 +26,7 @@ var symbol = orderBookFrame.symbol;
 
         /////////////////////////////Pour les Bid/ask ////////////////
         insertOrReplace(orderBookFrame, function() {
-            // sendToWeb();
+            sendToWeb();
             callbackMain("FINISH2");
         });
     }
@@ -103,4 +105,44 @@ var symbol = orderBookFrame.symbol;
             callback();
         }
     }
-	
+
+function sendToWeb() {
+    var query={symbol:"QTUMETH"};
+    var askLowestPrice=[];
+    var bidHighestPrice=[];
+    var bidarr = [];
+    var askarr = [];
+    mongoDb.findRecords(dbase,collectionName, query, {
+        _id: -1
+    }, function(message) {
+        for (var i = 0; i < message.length; i++) {
+            if (message[i].params.size != 0.00 && message[i].way == "bid") {
+                bidarr.push(parseFloat(message[i].params.price));
+            }
+            if (message[i].params.size != 0.00 && message[i].way == "ask") {
+                askarr.push(parseFloat(message[i].params.price));
+            }
+        }
+        bidHighestPrice[0] = getTop(bidarr, "max");
+        askLowestPrice[0] = getTop(askarr, "min");
+        ioSource.io.emit('bid message', "BID : "+ bidHighestPrice+" ASK : "+askLowestPrice);
+        //ioSource.io.emit('ask message', askLowestPrice);
+    });
+}
+
+
+function getTop(arr, maxmin) {
+    // sort descending
+    arr.sort(function(x, y) {
+        if (maxmin == "max") {
+            if (x == y) return 0;
+            else if (parseFloat(x) < parseFloat(y)) return 1;
+            else return -1;
+        } else {
+            if (x == y) return 0;
+            else if (parseFloat(x) < parseFloat(y)) return -1;
+            else return 1;
+        }
+    });
+    return arr[0];
+}

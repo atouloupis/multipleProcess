@@ -1,32 +1,48 @@
-var dbName = "heavy";
 var mongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/heavy";
 var collectionName = "test";
 
 
-mongoClient.connect(url, function(err, db) {
+mongoClient.connect(url, function (err, db) {
     if (err) throw err;
-	var date2 = new Date;
     var connectDbaseSource = db.db("heavy");
-	// var myObj=[];
+    // var myObj=[];
     // for (var j = 0; j < 960000; j++) {
-	// myObj.push({id:j});
-	// }
+    // myObj.push({id:j});
+    // }
 
-	// connectDbaseSource.collection(collectionName).insertMany(myObj, function(err, res) {
-        // if (err) throw err;
-		// var date1 = new Date;
-		// var time = date1-date2;
-		// console.log("time ="+time+" ms");
+    // connectDbaseSource.collection(collectionName).insertMany(myObj, function(err, res) {
+    // if (err) throw err;
+    // var date1 = new Date;
+    // var time = date1-date2;
+    // console.log("time ="+time+" ms");
 
 // });
-for (var j = 0; j < 10; j++) {
-	    connectDbaseSource.collection(collectionName).find("").toArray(function(err, result) {
-        if (err) throw err;
-		console.log("Number of documents ="+ result.length)
-		var date1 = new Date;
-		var time = date1-date2;
-		console.log("time ="+time+" ms");
+    /*    for (var j = 0; j < 10; j++) {
+            connectDbaseSource.collection(collectionName).find("").toArray(function (err, result) {
+                if (err) throw err;
+                console.log("Number of documents =" + result.length)
+                var date1 = new Date;
+                var time = date1 - date2;
+                console.log("time =" + time + " ms");
+            });
+        }*/
+
+    connectDbaseSource.createCollection(collectionName, function (err, res) {
+        if (err) console.log("create : " + JSON.stringify(err));
+        for (var i = 0; i < 100; i++) {
+            console.log(i)
+            var objAdd = [{value: 1234, block: i}];
+            connectDbaseSource.collection(collectionName).deleteMany({}, function (err) {
+                if (err) console.log("drop : " + JSON.stringify(err));
+                connectDbaseSource.collection(collectionName).insertMany(objAdd, function (err, res) {
+                    if (err) console.log("insert : " + JSON.stringify(err));
+                    connectDbaseSource.collection(collectionName).createIndex("{block:-1}", function (err, res) {
+                        if (err) console.log("index : " + JSON.stringify(err));
+
+                    });
+                });
+            });
+        }
     });
-    }
 });

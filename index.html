@@ -26,7 +26,6 @@
    </tr>
    <tr>
        <td> <ul id="messages"></ul></td>
-       <td> <text id="messages">33 ans </text></td>
    </tr>
 </table>
         <ul id="messages"></ul>
@@ -47,20 +46,21 @@
           return false;
         });
         socket.on('bid message', function(msg){
-          //$('#messages').append($('<li>').text(msg));
-            msg.sort(function(a, b) {
+            $('#messages').text(msg);
+            //$('#messages').append($('<li>').text(msg));
+          /*msg.sort(function(a, b) {
                 return a - b;
             });
-		  $('#messages').text("BID : " + msg.reverse());
+		  $('#messages').text("BID : " + msg.reverse());*/
           window.scrollTo(0, document.body.scrollHeight);
         });
           socket.on('ask message', function(msg){
               //$('#messages').append($('<li>').text(msg));
-              msg.sort(function(a, b) {
+              /*msg.sort(function(a, b) {
                   return a - b;
               });
               $('#messages1').text("ASK : " + msg);
-              window.scrollTo(0, document.body.scrollHeight);
+              window.scrollTo(0, document.body.scrollHeight);*/
           });
       });
             /* // Connexion à socket.io
