@@ -79,6 +79,7 @@ console.log("order side :"+order.side);
 			console.log("DIFF < 1");
                 treatmentOnOrder.cancelOrder(order.clientOrderId);
                 eligibility.eligibilityBuy(dbase,ticker, function() {
+				console.log("END OF CANCEL/BUY");
                     callback();
                 }); //vérifier si on lance un ordre de vente sur cette monnaie
             }
