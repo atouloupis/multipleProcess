@@ -3,7 +3,8 @@ var mongoDb = require('./mongoDb');
 
 function newActiveOrders(dbase,frame,callback) {
     var collectionName = "activeOrders";
-
+console.log("New Active Order");
+	console.log(frame);
         for (var i = 0; i < frame.length; i++) {
             var queryUpdate = {"clientOrderId": frame[i].clientOrderId};
             var newValue = frame[i];
