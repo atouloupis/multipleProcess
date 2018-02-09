@@ -92,6 +92,7 @@ console.log("order side :"+order.side);
             else if ((volume.inf + volume.equal) > 10 * order.quantity) {
                 //Si oui on annule mon ordre
 				console.log("VOLUME INF + VOLUME EQUAL > 10* QUANTITY");
+				console.log(volume);
                 treatmentOnOrder.cancelOrder(order.clientOrderId);
                 eligibility.eligibilityBuy(dbase,ticker, function() {
                     callback();
