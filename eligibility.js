@@ -151,9 +151,9 @@ function buy(dbase,ticker, callback) {
                             }
 
                             //si le volume échangé est bon  + la diff entre bid et ask > 2% +  diff entre ask et bid > 10 tick size
-                            // console.log("orderDiffPerc" + orderDiffPerc);
-                            // console.log("orderDiff" + orderDiff);
-                            // console.log("possibleToTrade" + possibleToTrade);
+                             console.log("orderDiffPerc" + orderDiffPerc);
+                             console.log("orderDiff" + orderDiff);
+                             console.log("possibleToTrade" + possibleToTrade);
                             if (possibleToTrade && orderDiffPerc > 1.5 && orderDiff > (100 * tickSize)) {
                                 //poser l'ordre d'achat
                                 var price = parseFloat(bidHighestPrice) + 5*parseFloat(tickSize);
