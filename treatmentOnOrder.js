@@ -50,7 +50,7 @@ function placeNewOrder(symbol,side,type,price,quantity) {
     }
 
 	// console.log("new order place : "+query.params.clientOrderId+" symbol : "+query.params.symbol);
-//console.log(query);
+console.log(query);
     wsConnection.sendRequest(query,function(){});
 }
 
