@@ -76,6 +76,7 @@ console.log("order side :"+order.side);
             console.log("tick bid" + ticker.bid + "order price" + order.price);
             console.log("volume inf =" + volume.inf + " volume equal =" + volume.equal + " order quantity =" + order.quantity);
             if (diff < 1) {
+			console.log("DIFF < 1");
                 treatmentOnOrder.cancelOrder(order.clientOrderId);
                 eligibility.eligibilityBuy(dbase,ticker, function() {
                     callback();
@@ -83,11 +84,13 @@ console.log("order side :"+order.side);
             }
             //Sinon est ce que le ticker d'achat bid est inférieur à mon ordre d'achat
             else if (ticker.bid < order.price) {
+			console.log("TICK BID < ORDER PRICE");
                 callback();
             } //Si oui on continue
             //Sinon est ce que le volume de l'orderbook bid inf a mon ordre est supérieur de X% au volume total
             else if ((volume.inf + volume.equal) > 10 * order.quantity) {
                 //Si oui on annule mon ordre
+				console.log("VOLUME INF + VOLUME EQUAL > 10* QUANTITY");
                 treatmentOnOrder.cancelOrder(order.clientOrderId);
                 eligibility.eligibilityBuy(dbase,ticker, function() {
                     callback();
