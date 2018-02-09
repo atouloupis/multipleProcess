@@ -70,6 +70,7 @@ console.log("order side :"+order.side);
         });
     } else if (order.side === "buy") {
         var diff = orderThanMarket(order, ticker, "ask");
+		console.log (diff);
         orderBookVolumes(order, "bid", function(volume) {
             //SI diff entre notre ordre d'achat et le ticker de vente ask  inf 1% alors annuler l'ordre
             console.log("tick bid" + ticker.bid + "order price" + order.price);
@@ -108,7 +109,7 @@ function orderThanMarket(order, ticker, marketSide) {
     if (marketSide === "bid") var diff = ((ticker.bid / order.price) - 1) * 100;
     else if (marketSide === "ask") var diff = ((ticker.ask / order.price) - 1) * 100;
     else {}
-    //console.log("diff ask =" + ticker.ask+"/"+order.price);
+    console.log("diff ask =" + ticker.ask+"/"+order.price);
     return diff;
 }
 
