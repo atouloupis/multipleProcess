@@ -62,7 +62,7 @@ function sell(dbase,ticker, callback) {
                         }
                         //poser un ordre sur le prix du ticker ask moins 10 unité avec toute la quantité dispo
                         else {
-                            var price = parseFloat(askLowestPrice) - 10*parseFloat(tickSize);
+                            var price = parseFloat(askLowestPrice) - 1*parseFloat(tickSize);
                             treatmentOnOrder.placeOrder(ticker.symbol, "sell", "limit", price, balanceAvailable);
                             callback();
                             console.log("price"+price);
