@@ -109,7 +109,7 @@ function orderThanMarket(order, ticker, marketSide) {
     if (marketSide === "bid") var diff = ((ticker.bid / order.price) - 1) * 100;
     else if (marketSide === "ask") var diff = ((ticker.ask / order.price) - 1) * 100;
     else {}
-    cconsole.log("diff ask =" + ticker.ask+"/"+order.price);
+    console.log("diff ask =" + ticker.ask+"/"+order.price);
     return diff;
 }
 
