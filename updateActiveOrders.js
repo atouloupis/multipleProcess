@@ -14,7 +14,7 @@ function newActiveOrders(dbase,frame,callback) {
         }
         if (frame.length==undefined)
         {
-		console.log("frame.length = undefined");
+		console.log("frame.length = undefined updateActiveOrders.js");
 		console.log(frame);
             var queryUpdate = {"clientOrderId": frame.clientOrderId};
             var newValue = frame;

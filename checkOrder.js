@@ -13,7 +13,7 @@ function hasAnOrder(dbase,tickerFrame, callback) {
         symbolDate[symbol] = new Date;
         get.getActiveOrders(dbase,tickerFrame.params.symbol, function(activeOrder) {
             if (activeOrder != undefined) {
-					console.log("activeOrder");
+					console.log("activeOrder checkorder.js");
 			console.log(activeOrder);
                 activeSellOrBuy(activeOrder, tickerFrame.params, function() {
                     callback();
@@ -75,18 +75,30 @@ console.log("order side :"+order.side);
             //SI diff entre notre ordre d'achat et le ticker de vente ask  inf 1% alors annuler l'ordre
             console.log("tick bid" + ticker.bid + "order price" + order.price);
             console.log("volume inf =" + volume.inf + " volume equal =" + volume.equal + " order quantity =" + order.quantity);
+
             if (diff < 1) {
 			console.log("DIFF < 1");
                 treatmentOnOrder.cancelOrder(order.clientOrderId);
                 eligibility.eligibilityBuy(dbase,ticker, function() {
 				console.log("END OF CANCEL/BUY");
                     callback();
+                    return;
                 }); //vérifier si on lance un ordre de vente sur cette monnaie
             }
             //Sinon est ce que le ticker d'achat bid est inférieur à mon ordre d'achat
+            else if (ticker.bid < (order.price-(0.005*order.price))) {
+                console.log("TICKER BID < ORDER PRICE - 5%");
+                treatmentOnOrder.cancelOrder(order.clientOrderId);
+                eligibility.eligibilityBuy(dbase,ticker, function() {
+                    console.log("END OF CANCEL/BUY");
+                    callback();
+                    return;
+                }); //vérifier si on lance un ordre de vente sur cette monnaie
+            } //Si oui on continue
             else if (ticker.bid < order.price) {
 			console.log("TICK BID < ORDER PRICE");
                 callback();
+                return;
             } //Si oui on continue
             //Sinon est ce que le volume de l'orderbook bid inf a mon ordre est supérieur de X% au volume total
             else if ((volume.inf + volume.equal) > 10 * order.quantity) {
@@ -96,6 +108,7 @@ console.log("order side :"+order.side);
                 treatmentOnOrder.cancelOrder(order.clientOrderId);
                 eligibility.eligibilityBuy(dbase,ticker, function() {
                     callback();
+                    return;
                 }); //vérifier si on lance un ordre de vente sur cette monnaie
             }
             //Si non, on continue
@@ -134,12 +147,23 @@ function orderBookVolumes(order, marketSide, callback) {
         for (var i = 0; i < message.length; i++) {
             if (message[i].params.size != 0.00) {
                 totalVolume = totalVolume + parseFloat(message[i].params.size);
-                if (message[i].params.price < order.price) volInfOrder += parseFloat(message[i].params.size);
-                else if (message[i].params.price === order.price) volEqualOrder += parseFloat(message[i].params.size);
-                else if (message[i].params.price > order.price) volSupOrder += parseFloat(message[i].params.size);
+                if (marketSide==="bid") {
+                    if (message[i].params.price > order.price) {
+                        volInfOrder += parseFloat(message[i].params.size);
+console.log(message[i].params.price)
+                       console.log(message[i].params.size)
+                    }
+                    else if (message[i].params.price === order.price) volEqualOrder += parseFloat(message[i].params.size);
+                    else if (message[i].params.price < order.price) volSupOrder += parseFloat(message[i].params.size);
+                }
+                else if (marketSide==="ask") {
+                    if (message[i].params.price < order.price) volInfOrder += parseFloat(message[i].params.size);
+                    else if (message[i].params.price === order.price) volEqualOrder += parseFloat(message[i].params.size);
+                    else if (message[i].params.price > order.price) volSupOrder += parseFloat(message[i].params.size);
+                }
             }
         }
-        //console.log("totalVolume =" +totalVolume+"volInfOrder"+volInfOrder+"volEqualOrder"+volEqualOrder+"volSupOrder"+volSupOrder);
+        console.log("totalVolume =" +totalVolume+"volInfOrder"+volInfOrder+"volEqualOrder"+volEqualOrder+"volSupOrder"+volSupOrder);
         callback({
             "total": totalVolume,
             "inf": volInfOrder,
