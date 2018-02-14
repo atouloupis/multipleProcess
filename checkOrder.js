@@ -52,6 +52,7 @@ console.log("order side :"+order.side);
             if (diff < -1) {
                 treatmentOnOrder.cancelOrder(order.clientOrderId);
                 treatmentOnOrder.placeOrder(order.symbol, "sell", "market", "", order.quantity);
+				console.log("check Order sell : diff < -1");
                 callback();
             }
             //console.log("ticker ask")
@@ -65,8 +66,8 @@ console.log("order side :"+order.side);
             } else if ((volume.inf + volume.equal) > 10 * order.quantity) {
                 //Si oui on annule l'ordre et on appelle l'eligibilité
                 treatmentOnOrder.cancelOrder(order.clientOrderId);
-                //console.log("order quantity")
-                //console.log( order.quantity)
+                console.log("order quantity")
+                console.log( order.quantity)
                 eligibility.eligibilitySell(dbase,ticker, function() {
                     callback();
                 }); //vérifier si on lance un ordre de vente sur cette monnaie
