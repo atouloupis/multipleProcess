@@ -8,6 +8,7 @@ for (var i=0;i<allSymbols.length;i++)
 	var regex = /ETH/;
 	if (diffPerc >2 && (allSymbols[i].symbol.search(regex))>-1) 
 	{
+	console.log(diffPerc);
 	console.log(allSymbols[i].symbol);
 	}
 	}
