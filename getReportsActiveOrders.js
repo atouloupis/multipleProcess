@@ -7,18 +7,19 @@ var api = require('./getRestFull');
 function getActiveOrders (dbase,symbol,callback)
 {
 var collectionName="activeOrders";
+var newOrders = [];
 mongoDb.findRecords(dbase,collectionName,{"symbol":symbol},{_id: -1},function(allOrders){
     for (var i=0;i<allOrders.length;i++)
 		{
 		if (allOrders[i].status == "new" || allOrders[i].status == "partiallyFilled")
 			{
-			callback (allOrders[i]);
+			newOrders.push(allOrders[i]);
 			}
-           else if (i==allOrders.length-1){
-                callback();
-            }
 		}
-		if (allOrders.length==0)callback();
+		if (i===allOrders.length) {
+		callback (newOrders);
+		}
+		else if (allOrders.length===0)callback();
 
 	});
 }
