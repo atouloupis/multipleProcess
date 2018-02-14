@@ -158,7 +158,8 @@ function buy(dbase,ticker, callback) {
                             if (possibleToTrade && orderDiffPerc > 2 && orderDiff > (20 * tickSize)) {
                                 //poser l'ordre d'achat
                                 // var price = parseFloat(bidHighestPrice) + 5*parseFloat(tickSize);
-                                 var price = parseFloat(bidHighestPrice) + parseFloat((askLowestPrice-bidHighestPrice)/2);
+								
+                                 var price = parseFloat(bidHighestPrice) + parseFloat(orderDiff/4);
 								treatmentOnOrder.placeOrder(ticker.symbol, "buy", "limit", price, quantityIncrement);
                                 callback();
                             } else {
