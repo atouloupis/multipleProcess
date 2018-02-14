@@ -24,6 +24,7 @@ jsonfile.readFile(keyfile, function(err, obj) {
 			console.log("error");
 			console.log(evt);
 			if (ws.readyState===3) {
+			WebSocket = require('ws');
 			ws = new WebSocket("wss://api.hitbtc.com/api/2/ws");
 			exports.ws = ws;
 			}
@@ -31,6 +32,7 @@ jsonfile.readFile(keyfile, function(err, obj) {
 			ws.onclose= function(evt){
 			console.log("closing");
 			console.log(evt);
+			WebSocket = require('ws');
 			ws = new WebSocket("wss://api.hitbtc.com/api/2/ws");
 			exports.ws = ws;
 			};
