@@ -9,7 +9,7 @@ for (var i=0;i<allSymbols.length;i++)
 	if (diffPerc >10 && (allSymbols[i].symbol.search(regex))>-1 && allSymbols[i].volumeQuote>5) 
 	{
 	// console.log(diffPerc);
-	console.log(allSymbols[i].symbol);
+	console.log("{'symbol':'"+allSymbols[i].symbol+"'},");
 	}
 	}
 });
