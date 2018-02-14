@@ -1,13 +1,4 @@
 [
 {"symbol":"PAYETH"},                                                                                                     
-{"symbol":"OAXETH"},                                                                                                     
-{"symbol":"AVTETH"},                                                                                                     
-{"symbol":"ATBETH"},                                                                                                     
-{"symbol":"DRTETH"},                                                                                                     
-{"symbol":"CLETH"},                                                                                                      
-{"symbol":"ARNETH"},                                                                                                     
-{"symbol":"NGCETH"},                                                                                                     
-{"symbol":"UTTETH"},                                                                                                     
-{"symbol":"UTKETH"},                                                                                                     
-{"symbol":"BARETH"}
+{"symbol":"OAXETH"}
 ]
