@@ -49,10 +49,10 @@ console.log("order side :"+order.side);
             console.log(volume);
             //console.log("diff"+diff)
             //Si la diff entre notre ordre de vente et le ticker d'achat bid est inf 1% alors vendre au prix
-            if (diff < -1) {
+            if (diff < -0.1) {
                 treatmentOnOrder.cancelOrder(order.clientOrderId);
                 treatmentOnOrder.placeOrder(order.symbol, "sell", "market", "", order.quantity);
-				console.log("check Order sell : diff < -1");
+				console.log("check Order sell : diff < -1 : "+diff);
                 callback();
             }
             //console.log("ticker ask")
@@ -136,6 +136,7 @@ function orderThanMarket(order, ticker, marketSide) {
     else if (marketSide === "ask") var diff = ((ticker.ask / order.price) - 1) * 100;
     else {}
     console.log("diff ask =" + ticker.ask+"/"+order.price);
+	console.log("diff bid =" + ticker.bid+"/"+order.price);
     return diff;
 }
 
