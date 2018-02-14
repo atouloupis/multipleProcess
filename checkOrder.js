@@ -12,14 +12,21 @@ function hasAnOrder(dbase,tickerFrame, callback) {
     if (date - symbolDate[symbol] > 5000 || symbolDate[symbol] === undefined) {
         symbolDate[symbol] = new Date;
         get.getActiveOrders(dbase,tickerFrame.params.symbol, function(activeOrder) {
-            if (activeOrder.length>0) {
+            if (activeOrder.length===1) {
 					console.log("activeOrder checkorder.js");
 			console.log(activeOrder);
-                activeSellOrBuy(activeOrder, tickerFrame.params, function() {
+                activeSellOrBuy(activeOrder[0], tickerFrame.params, function() {
                     callback();
                 });
                 // console.log("activeOrder status not undefined");
-            } else {
+            } 
+			else if (activeOrder.length>1) {
+				for (var i=0;i<activeOrder.length;i++)
+				{
+				treatmentOnOrder.cancelOrder(activeOrder[i].clientOrderId);
+				}
+			}
+			else {
                 eligibility.eligibilityBuy(dbase,tickerFrame.params, function() {
                     callback();
                 });
