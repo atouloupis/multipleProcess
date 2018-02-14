@@ -82,7 +82,7 @@ jsonfile.readFile(configfile, function(err, obj) {
                             });
                         }
 
-                        //mongoDb.createCollection(dbase, "orderBookFrame", function () {
+                        mongoDb.createCollection(dbase, "orderBookFrame", function () {
                             mongoDb.dropCollection(dbase, "orderBookFrame", function () {
                                 mongoDb.insertCollection(dbase, "orderBookFrame", objAdd, function () {
                                     mongoDb.createIndex(dbase, "orderBookFrame", "{symbol:1,way:-1}", function () {
@@ -90,7 +90,7 @@ jsonfile.readFile(configfile, function(err, obj) {
                                 });
 
                             });
-                        //});
+                        });
                     }
             });
         }
