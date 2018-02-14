@@ -12,7 +12,7 @@ function hasAnOrder(dbase,tickerFrame, callback) {
     if (date - symbolDate[symbol] > 5000 || symbolDate[symbol] === undefined) {
         symbolDate[symbol] = new Date;
         get.getActiveOrders(dbase,tickerFrame.params.symbol, function(activeOrder) {
-            if (activeOrder != undefined) {
+            if (activeOrder != []) {
 					console.log("activeOrder checkorder.js");
 			console.log(activeOrder);
                 activeSellOrBuy(activeOrder, tickerFrame.params, function() {

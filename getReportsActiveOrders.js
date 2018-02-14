@@ -19,7 +19,7 @@ mongoDb.findRecords(dbase,collectionName,{"symbol":symbol},{_id: -1},function(al
 		if (i===allOrders.length) {
 		callback (newOrders);
 		}
-		else if (allOrders.length===0)callback();
+		else if (allOrders.length===0)callback(newOrders);
 
 	});
 }
