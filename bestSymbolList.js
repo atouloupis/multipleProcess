@@ -6,7 +6,7 @@ for (var i=0;i<allSymbols.length;i++)
 	{
 	diffPerc=((allSymbols[i].ask/allSymbols[i].bid)-1)*100;
 	var regex = /ETH/;
-	if (diffPerc >2 && (allSymbols[i].symbol.search(regex))>-1 && allSymbols[i].volumeQuote>1) 
+	if (diffPerc >2 && (allSymbols[i].symbol.search(regex))>-1 && allSymbols[i].volumeQuote>5) 
 	{
 	console.log(diffPerc);
 	console.log(allSymbols[i].symbol);
