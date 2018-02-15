@@ -65,7 +65,7 @@ function sell(dbase,ticker, callback) {
                             var price = parseFloat(askLowestPrice) - 1*parseFloat(tickSize);
                             treatmentOnOrder.placeOrder(ticker.symbol, "sell", "limit", price, balanceAvailable);
                             callback();
-                            console.log("price"+price);
+                            console.log("price"+price+ " symbol "+ticker.symbol);
                         }
                     });
                 });
@@ -121,8 +121,8 @@ function buy(dbase,ticker, callback) {
                     }
                     bidHighestPrice = getTop(bidarr, "max");
                     askLowestPrice = getTop(askarr, "min");
-                    // console.log("bid High" + bidHighestPrice);
-                    // console.log("askLowestPrice" + askLowestPrice);
+                    console.log("bid High" + bidHighestPrice+ " symbol "+ticker.symbol);
+                    console.log("askLowestPrice" + askLowestPrice+ " symbol "+ticker.symbol);
 
                     //quelle est la différence entre order achat et order vente
                     var orderDiffPerc = ((askLowestPrice / bidHighestPrice) - 1) * 100;
@@ -144,22 +144,24 @@ function buy(dbase,ticker, callback) {
                                 if (message[i].id = ticker.symbol) {
                                     tickSize = message[i].tickSize;
                                     quantityIncrement = message[i].quantityIncrement;
-                                    // console.log("symbol" + message[i].id);
-                                    // console.log("ticksize" + tickSize);
-                                    // console.log("quantityIncrement" + quantityIncrement);
+                                    console.log("symbol" + message[i].id+ " symbol "+ticker.symbol);
+                                    console.log("ticksize" + tickSize+ " symbol "+ticker.symbol);
+                                    console.log("quantityIncrement" + quantityIncrement+ " symbol "+ticker.symbol);
                                 }
                             }
 
                             //si le volume échangé est bon  + la diff entre bid et ask > 2% +  diff entre ask et bid > 10 tick size
-                             console.log("orderDiffPerc" + orderDiffPerc);
-                             console.log("orderDiff" + orderDiff);
-                             console.log("possibleToTrade" + possibleToTrade);
-							 console.log(tickSize);
+                             console.log("orderDiffPerc " + orderDiffPerc+ " symbol "+ticker.symbol);
+                             console.log("orderDiff " + orderDiff+ " symbol "+ticker.symbol);
+                             console.log("possibleToTrade " + possibleToTrade+ " symbol "+ticker.symbol);
+							 console.log("tickSize "+tickSize+ " symbol "+ticker.symbol);
                             if (possibleToTrade && orderDiffPerc > 2 && orderDiff > (20 * tickSize)) {
                                 //poser l'ordre d'achat
                                 // var price = parseFloat(bidHighestPrice) + 5*parseFloat(tickSize);
 								
                                  var price = parseFloat(bidHighestPrice) + parseFloat(orderDiff/4);
+								 console.log("orderDiff "+orderDiff+ " symbol "+ticker.symbol);
+								 console.log("price "+price + " symbol "+ticker.symbol);
 								treatmentOnOrder.placeOrder(ticker.symbol, "buy", "limit", price, quantityIncrement);
                                 callback();
                             } else {
