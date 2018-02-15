@@ -1,6 +1,5 @@
+module.exports.run = run;
 var mongoDb = require('./mongoDb');
-var configfile = './config.json';
-var jsonfile = require('jsonfile');
 var urlOrderBook = "mongodb://localhost:27017/orderBook";
 var wsCall = require('./wsCall');
 var mongoClient = require('mongodb').MongoClient;
@@ -22,45 +21,35 @@ http.listen(port, function () {
     console.log('listening on *:' + port);
 });
 
-
-
-
-
-
-
+function run(symbol)
+{
     mongoClient.connect(urlOrderBook, function (err, db) {
         if (err) throw err;
         dbase = db.db("orderBook");
         mongoDb.createCollection(dbase, "orderBookFrame", function () {
             mongoDb.dropCollection(dbase, "orderBookFrame", function () {
 
-jsonfile.readFile(configfile, function(err, obj) {
-    if (err) throw err;
-	for (i=0;i<obj.length;i++)
-	{
     rqstOrderBook[i] = {
         "method": "subscribeOrderbook",
         "params": {
-            "symbol": obj[i].symbol
+            "symbol": symbol
         },
         "id": 123
     };
-    }
+
     var scheduler = null;
 	//var scheduler = "*/1 * * * *";
                 wsCall.webSocketCall(dbase, rqstOrderBook,scheduler);
     var j = schedule.scheduleJob('*/10 * * * * *', function() {
-        importRest(obj);
+        importRest(symbol);
     });
 
-    });
+
         });
     });
 
 
-    function importRest(config) {
-        for (var j = 0; j < config.length; j++) {
-            var symbol=config[j].symbol;
+    function importRest(symbol) {
             api.getHitBTC("/api/2/public/orderbook/"+symbol, "GET", function (err, orderBookFrame) {
                 if (err) console.log(err);
                 else if (orderBookFrame.ask===undefined)null;
@@ -82,7 +71,7 @@ jsonfile.readFile(configfile, function(err, obj) {
                             });
                         }
 
-                        mongoDb.createCollection(dbase, "orderBookFrame", function () {
+                        // mongoDb.createCollection(dbase, "orderBookFrame", function () {
                             mongoDb.dropCollection(dbase, "orderBookFrame", function () {
                                 mongoDb.insertCollection(dbase, "orderBookFrame", objAdd, function () {
                                     mongoDb.createIndex(dbase, "orderBookFrame", "{symbol:1,way:-1}", function () {
@@ -90,10 +79,11 @@ jsonfile.readFile(configfile, function(err, obj) {
                                 });
 
                             });
-                        });
+                        // });
                     }
             });
-        }
+        
 
     }
     });
+}

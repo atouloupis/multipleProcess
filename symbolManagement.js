@@ -1,9 +1,13 @@
+module.exports.run = run;
 var api = require('./getRestFull');
 var mongoDb = require('./mongoDb');
 var schedule = require('node-schedule');
 var collectionName = "symbol";
 var mongoClient = require('mongodb').MongoClient;
 var urlOrderBook = "mongodb://localhost:27017/orderBook";
+
+function run()
+{
 
 mongoClient.connect(urlOrderBook, function(err, db) {
     if (err) throw err;
@@ -30,3 +34,5 @@ dbase = db.db("orderBook");
 
     });
 });
+
+}
