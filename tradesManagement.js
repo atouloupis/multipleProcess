@@ -4,7 +4,7 @@ var urlOrderBook = "mongodb://localhost:27017/orderBook";
 var wsCall = require('./wsCall');
 var mongoClient = require('mongodb').MongoClient;
 var rqstSnapshotTrades=[];
-
+var collectionName = "tradeHistory"
 function run(symbol)
 {
 deleteQuery = {symbol:symbol};
@@ -12,7 +12,7 @@ deleteQuery = {symbol:symbol};
         if (err) throw err;
         dbase = db.db("orderBook");
 
-        mongoDb.createCollection(dbase, "tradeHistory", function () {
+        mongoDb.createCollection(dbase, collectionName, function () {
             mongoDb.deleteRecords(dbase,collectionName, deleteQuery, function() {
 
 
