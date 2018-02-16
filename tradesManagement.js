@@ -7,12 +7,13 @@ var rqstSnapshotTrades=[];
 
 function run(symbol)
 {
+deleteQuery = {symbol:symbol};
     mongoClient.connect(urlOrderBook, function (err, db) {
         if (err) throw err;
         dbase = db.db("orderBook");
 
         mongoDb.createCollection(dbase, "tradeHistory", function () {
-            mongoDb.dropCollection(dbase, "tradeHistory", function () {
+            mongoDb.deleteRecords(dbase,collectionName, deleteQuery, function() {
 
 
     rqstSnapshotTrades[i] = {

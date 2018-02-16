@@ -6,7 +6,6 @@ var rqstTicker=[];
 
 function run(symbol)
 {
-
 mongoClient.connect(urlOrderBook, function(err, db) {
     if (err) throw err;
     dbase = db.db("orderBook");

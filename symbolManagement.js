@@ -8,14 +8,14 @@ var urlOrderBook = "mongodb://localhost:27017/orderBook";
 
 function run()
 {
-
+deleteQuery = {symbol:symbol};
 mongoClient.connect(urlOrderBook, function(err, db) {
     if (err) throw err;
 dbase = db.db("orderBook");
     mongoDb.createCollection(dbase,collectionName, function() {
         api.getHitBTC("/api/2/public/symbol", "GET", function(err, symbol) {
             if (err) throw err;
-            mongoDb.dropCollection(dbase,collectionName, function() {
+            mongoDb.deleteRecords(dbase,collectionName, deleteQuery, function() {
                 mongoDb.insertCollection(dbase,collectionName, symbol, function() {
                     mongoDb.createIndex(dbase,collectionName, "{id:1}", function() {});
                 });
@@ -25,7 +25,7 @@ dbase = db.db("orderBook");
             api.getHitBTC("/api/2/public/symbol", "GET", function(err, symbol) {
                 if (err) console.log(err);
                 else {
-                    mongoDb.dropCollection(dbase,collectionName, function() {
+                    mongoDb.deleteRecords(dbase,collectionName, deleteQuery, function() {
                         mongoDb.insertCollection(dbase,collectionName, symbol, function() {});
                     });
                 }

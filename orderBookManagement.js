@@ -23,11 +23,12 @@ http.listen(port, function () {
 
 function run(symbol)
 {
+deleteQuery = {symbol:symbol};
     mongoClient.connect(urlOrderBook, function (err, db) {
         if (err) throw err;
         dbase = db.db("orderBook");
         mongoDb.createCollection(dbase, "orderBookFrame", function () {
-            mongoDb.dropCollection(dbase, "orderBookFrame", function () {
+            mongoDb.deleteRecords(dbase,collectionName, deleteQuery, function() {
 
     rqstOrderBook[i] = {
         "method": "subscribeOrderbook",
@@ -72,7 +73,7 @@ function run(symbol)
                         }
 
                         // mongoDb.createCollection(dbase, "orderBookFrame", function () {
-                            mongoDb.dropCollection(dbase, "orderBookFrame", function () {
+                            mongoDb.deleteRecords(dbase,collectionName, deleteQuery, function() {
                                 mongoDb.insertCollection(dbase, "orderBookFrame", objAdd, function () {
                                     mongoDb.createIndex(dbase, "orderBookFrame", "{symbol:1,way:-1}", function () {
                                     });

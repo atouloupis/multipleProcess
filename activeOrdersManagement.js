@@ -14,13 +14,13 @@ var rqstReport = [{
 
 function run()
 {
-
+	deleteQuery = {};
 mongoClient.connect(urlOrderBook, function(err, db) {
     if (err) throw err;
     dbase = db.db("orderBook");
 
     mongoDb.createCollection(dbase,collectionName, function() {
-        mongoDb.dropCollection(dbase,collectionName, function() {
+            mongoDb.deleteRecords(dbase,collectionName, deleteQuery, function() {
                 var scheduler = null;
                 wsCall.webSocketCall(dbase,rqstReport,scheduler);
 
@@ -31,7 +31,7 @@ mongoClient.connect(urlOrderBook, function(err, db) {
                             console.log("newOrder");
 							console.log(activeOrder);
 							    //mongoDb.createCollection(dbase,collectionName, function() {
-                            mongoDb.dropCollection(dbase,collectionName, function() {
+                                    mongoDb.deleteRecords(dbase,collectionName, deleteQuery, function() {
                                 mongoDb.insertCollection(dbase,collectionName, activeOrder, function() {
                                     mongoDb.createIndex(dbase,collectionName, "{symbol:1,clientOrderId:1}", function() {});
 									});
