@@ -8,7 +8,7 @@ var urlOrderBook = "mongodb://localhost:27017/orderBook";
 
 function run()
 {
-deleteQuery = {symbol:symbol};
+deleteQuery = {};
 mongoClient.connect(urlOrderBook, function(err, db) {
     if (err) throw err;
 dbase = db.db("orderBook");
