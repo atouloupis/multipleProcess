@@ -17,7 +17,7 @@ jsonfile.readFile(keyfile, function(err, obj) {
             "pKey": obj.hitbtc.pKey,
             "sKey": obj.hitbtc.sKey
         }
-    }
+    };
 	ws.onopen = function() {
 		console.log("CONNECTED");
 			ws.onerror = function(evt) {

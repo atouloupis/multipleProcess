@@ -159,7 +159,7 @@ function buy(dbase,ticker, callback) {
                                 //poser l'ordre d'achat
                                 // var price = parseFloat(bidHighestPrice) + 5*parseFloat(tickSize);
 								
-                                 var price = parseFloat(bidHighestPrice) + parseFloat(orderDiff/4);
+                                 var price = parseFloat(bidHighestPrice) + parseFloat(orderDiff/6);
 								 console.log("orderDiff "+orderDiff+ " symbol "+ticker.symbol);
 								 console.log("price "+price + " symbol "+ticker.symbol);
 								treatmentOnOrder.placeOrder(ticker.symbol, "buy", "limit", price, quantityIncrement);
