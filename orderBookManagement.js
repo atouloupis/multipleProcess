@@ -11,7 +11,7 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var port = process.env.PORT || 3000;
-
+var collectionName="orderBookFrame";
 exports.io = io;
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/index.html');
@@ -27,7 +27,7 @@ deleteQuery = {symbol:symbol};
     mongoClient.connect(urlOrderBook, function (err, db) {
         if (err) throw err;
         dbase = db.db("orderBook");
-        mongoDb.createCollection(dbase, "orderBookFrame", function () {
+        mongoDb.createCollection(dbase, collectionName, function () {
             mongoDb.deleteRecords(dbase,collectionName, deleteQuery, function() {
 
     rqstOrderBook[i] = {
