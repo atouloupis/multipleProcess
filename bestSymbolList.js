@@ -5,6 +5,7 @@ api.getHitBTC("/api/2/public/ticker","get",function (err,allSymbols) {
 var diffPerc = 0;
 for (var i=0;i<allSymbols.length;i++)
 	{
+	console.log(allSymbols[i]);
 	tradesTimer(allSymbols[i],function(possibleToTrade){
 	diffPerc=((allSymbols[i].ask/allSymbols[i].bid)-1)*100;
 	var regex = /ETH/;
@@ -23,7 +24,7 @@ function tradesTimer(symbol,callback){
     //récupérer les 50 derniers trades en vente
     var somme = 0;
 	var lastTrades=[];
-	console.log("/api/2/public/trades/"+symbol+"?sort=DESC");
+	
     api.getHitBTC("/api/2/public/trades/"+symbol+"?sort=DESC","get",function (err,allTrades) {
         //calcul moyenne temps de trade en vente si supérieur à 10 trades
 			for (var i=0;i<50;i++)
