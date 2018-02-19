@@ -8,10 +8,13 @@ for (var i=0;i<allSymbols.length;i++)
 	tradesTimer(allSymbols[i].symbol,function(possibleToTrade){});
 	diffPerc=((allSymbols[i].ask/allSymbols[i].bid)-1)*100;
 	var regex = /ETH/;
+	if (possibleToTrade!=undefined)
+	{
 	if (diffPerc >2 && diffPerc<10 && (allSymbols[i].symbol.search(regex))>-1 && allSymbols[i].volumeQuote>5 && possibleToTrade)
 	{
 	// console.log(diffPerc);
 	console.log('{"symbol":"'+allSymbols[i].symbol+'"},');
+	}
 	}
 	}
 });
