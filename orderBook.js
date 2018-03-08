@@ -24,7 +24,7 @@ var symbol = orderBookFrame.symbol;
         });
     } else {
         // R�cup�rer donn�es dans Mongo
-
+	console.log(orderBookFrame);
         /////////////////////////////Pour les Bid/ask ////////////////
         insertOrReplace(orderBookFrame, function() {
             sendToWeb();
