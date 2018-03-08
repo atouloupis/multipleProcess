@@ -16,7 +16,7 @@ deleteQuery = {symbol:symbol};
             mongoDb.deleteRecords(dbase,collectionName, deleteQuery, function() {
 
 
-    rqstSnapshotTrades[i] = {
+    rqstSnapshotTrades[0] = {
         "method": "subscribeTrades",
         "params": {
             "symbol": symbol

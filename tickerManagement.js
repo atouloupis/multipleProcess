@@ -9,14 +9,14 @@ function run(symbol)
 mongoClient.connect(urlOrderBook, function(err, db) {
     if (err) throw err;
     dbase = db.db("orderBook");
-	rqstTicker.push(
+	rqstTicker[0]=
 	{
     "method": "subscribeTicker",
     "params": {
         "symbol": symbol
     },
     "id": 123
-});
+};
 var scheduler=null;
 wsCall.webSocketCall(dbase,rqstTicker,scheduler);
 

@@ -30,7 +30,7 @@ deleteQuery = {"symbol":symbol};
         mongoDb.createCollection(dbase, collectionName, function () {
             mongoDb.deleteRecords(dbase,collectionName, deleteQuery, function() {
 
-    rqstOrderBook[i] = {
+    rqstOrderBook[0] = {
         "method": "subscribeOrderbook",
         "params": {
             "symbol": symbol
