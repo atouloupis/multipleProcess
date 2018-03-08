@@ -212,5 +212,6 @@ function getTop(arr, maxmin) {
             else return 1;
         }
     });
+	console.log(arr);
     return arr[0];
 }
