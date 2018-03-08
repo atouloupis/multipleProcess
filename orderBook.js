@@ -6,6 +6,9 @@ var ioSource = require('./orderBookManagement.js');
 
 
 function updateOrderBook(dbase,orderBookFrame, method, callbackMain) {
+console.log(orderBookFrame);
+console.log(method);
+console.log(dbase);
 var symbol = orderBookFrame.symbol;
     //Si methode = snapshotOrderbook, supprime et remplace toutes les valeurs pour ce symbol
     if (method == "snapshotOrderbook") {
@@ -14,7 +17,6 @@ var symbol = orderBookFrame.symbol;
             //D�couper la trame pour respecter format
             //D�coupe de ask et enregistrement
             //Appel de la fonction d'ajout des ASK à partir d'un snapshot
-			console.log(orderBookFrame);
             snapshotAddAsk(orderBookFrame, function(log) {
                 //console.log(log);
                 //D�coupe de bid et enregistrement
@@ -24,7 +26,6 @@ var symbol = orderBookFrame.symbol;
         });
     } else {
         // R�cup�rer donn�es dans Mongo
-	console.log(orderBookFrame);
         /////////////////////////////Pour les Bid/ask ////////////////
         insertOrReplace(orderBookFrame, function() {
             sendToWeb();
