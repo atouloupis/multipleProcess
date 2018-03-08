@@ -32,7 +32,6 @@ function splitFrame(dbase,jsonFrame) {
         }
         if (jsonFrame.method == "updateOrderbook" | jsonFrame.method == "snapshotOrderbook") {
             var orderBookParams = jsonFrame.params;
-			console.log(orderBookParams);
 			// console.time("updateOrderbook");
             orderBook.updateOrderBook(dbase,orderBookParams, jsonFrame.method, function (termine) {
 			// console.timeEnd("updateOrderbook");
