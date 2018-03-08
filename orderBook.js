@@ -14,6 +14,7 @@ var symbol = orderBookFrame.symbol;
             //D�couper la trame pour respecter format
             //D�coupe de ask et enregistrement
             //Appel de la fonction d'ajout des ASK à partir d'un snapshot
+			console.log(orderBookFrame);
             snapshotAddAsk(orderBookFrame, function(log) {
                 //console.log(log);
                 //D�coupe de bid et enregistrement
