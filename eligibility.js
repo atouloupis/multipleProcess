@@ -113,8 +113,6 @@ function buy(dbase,ticker, callback) {
                 }, function(message) {
                     for (var i = 0; i < message.length; i++) {
                         if (message[i].params.size != 0.00 && message[i].way == "bid") {
-						console.log(message[i].params.size);
-						console.log(message[i].params.price);
                             bidarr.push(parseFloat(message[i].params.price));
                         }
                         if (message[i].params.size != 0.00 && message[i].way == "ask") {
