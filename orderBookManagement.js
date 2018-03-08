@@ -23,7 +23,7 @@ http.listen(port, function () {
 
 function run(symbol)
 {
-deleteQuery = {symbol:symbol};
+deleteQuery = {"symbol":symbol};
     mongoClient.connect(urlOrderBook, function (err, db) {
         if (err) throw err;
         dbase = db.db("orderBook");
