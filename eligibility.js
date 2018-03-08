@@ -119,6 +119,7 @@ function buy(dbase,ticker, callback) {
                             askarr.push(parseFloat(message[i].params.price));
                         }
                     }
+					console.log(bidarr);
                     bidHighestPrice = getTop(bidarr, "max");
                     askLowestPrice = getTop(askarr, "min");
                     console.log("bid High" + bidHighestPrice+ " symbol "+ticker.symbol);
@@ -212,6 +213,5 @@ function getTop(arr, maxmin) {
             else return 1;
         }
     });
-	console.log(arr);
     return arr[0];
 }
