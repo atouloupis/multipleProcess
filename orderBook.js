@@ -6,9 +6,6 @@ var ioSource = require('./orderBookManagement.js');
 
 
 function updateOrderBook(dbase,orderBookFrame, method, callbackMain) {
-console.log(orderBookFrame);
-console.log(method);
-console.log(dbase);
 var symbol = orderBookFrame.symbol;
     //Si methode = snapshotOrderbook, supprime et remplace toutes les valeurs pour ce symbol
     if (method == "snapshotOrderbook") {
